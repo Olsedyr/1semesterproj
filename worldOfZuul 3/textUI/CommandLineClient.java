@@ -50,12 +50,7 @@ public class CommandLineClient {
         }
     }
 
-    private void printRoomObjList() {
-        for(String str : game.getRoomObjList())
-        {
-            System.out.println(str + " ");
-        }
-    }
+
 
     //Controller
     public boolean processCommand(Command command) {
@@ -84,8 +79,8 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.LOOK) {
             if (game.lookRoom(command)) {
-                System.out.println("In this area you can see...");
-                printRoomObjList(); ///Needs update
+                System.out.println(game.getRoomObjList());
+                ///Maybe add"You can see x objects of interest"
             } else {
                 System.out.println("I see nothing in this room.");
             }

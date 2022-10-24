@@ -15,12 +15,14 @@ public class Game {
     private void createRooms() {
         Room bedroom, kitchen, bathroom, town, beach;
 
+        ///Create Room
         bedroom = new Room("in your bedroom, this is your house");
         kitchen = new Room("in the kitchen, there's lots to eat");
         bathroom = new Room("in the bathroom, you clean yourself up here");
         town = new Room("in the town, bustling as always");
         beach = new Room("on the beach, the sand is soft under your feet");
 
+        ///Set Exit
         bedroom.setExit("kitchen", kitchen);
 
         kitchen.setExit("bedroom", bedroom);
@@ -33,6 +35,15 @@ public class Game {
         town.setExit("beach", beach);
 
         beach.setExit("town", town);
+
+        ///Set Room Obj, simple, needs update
+        bedroom.setObjs("Light",bedroom);
+        bedroom.setObjs("Heater",bedroom);
+        bedroom.setObjs("Window",bedroom);
+        bedroom.setObjs("Computer",bedroom);
+
+        kitchen.setObjs("Kitchen light",kitchen);
+
 
         currentRoom = bedroom;
     }
@@ -85,10 +96,9 @@ public class Game {
         return commands.getCommandWords();
     }
 
-    public List<String> getRoomObjList()
+    public String getRoomObjList()
     {
-        List<String> roomObjs = Objs.objsArrayList;
-        return roomObjs;
+        return currentRoom.getRoomObjsDescription();
     }
 
     public Command getCommand(String word1, String word2) {

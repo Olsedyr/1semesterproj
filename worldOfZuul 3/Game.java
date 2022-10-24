@@ -57,6 +57,14 @@ public class Game {
         }
     }
 
+    public boolean lookRoom(Command command) {
+        if (command.hasCommandValue()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public boolean quit(Command command) {
         if (command.hasCommandValue()) {
             return false;
@@ -75,6 +83,12 @@ public class Game {
 
     public List<String> getCommandDescriptions() {
         return commands.getCommandWords();
+    }
+
+    public List<String> getRoomObjList()
+    {
+        List<String> roomObjs = Objs.objsArrayList;
+        return roomObjs;
     }
 
     public Command getCommand(String word1, String word2) {

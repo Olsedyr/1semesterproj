@@ -50,6 +50,13 @@ public class CommandLineClient {
         }
     }
 
+    private void printRoomObjList() {
+        for(String str : game.getRoomObjList())
+        {
+            System.out.println(str + " ");
+        }
+    }
+
     //Controller
     public boolean processCommand(Command command) {
         boolean wantToQuit = false;
@@ -67,12 +74,22 @@ public class CommandLineClient {
             System.out.println();
             System.out.println("Your command words are:");
             printHelp();
+
         } else if (commandWord == Commands.GO) {
             if (game.goRoom(command)) {
                 System.out.println(game.getRoomDescription());
             } else {
                 System.out.println("Can't walk in that direction.");
             }
+
+        } else if (commandWord == Commands.LOOK) {
+            if (game.lookRoom(command)) {
+                System.out.println("In this area you can see...");
+                printRoomObjList(); ///Needs update
+            } else {
+                System.out.println("I see nothing in this room.");
+            }
+
         } else if (commandWord == Commands.QUIT) {
             if (game.quit(command)) {
                 wantToQuit = true;

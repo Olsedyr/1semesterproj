@@ -13,28 +13,28 @@ public class Game {
     }
 
     private void createRooms() {
-        Room outside, theatre, pub, lab, office;
+        Room soveværelse, badeværelse, by, strand, køkken;
 
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        soveværelse = new Room("i dit soveværelse");
+        køkken = new Room("i dit køkken");
+        by = new Room("i byen");
+        strand = new Room("på stranden");
+        badeværelse = new Room("i badeværelset");
 
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        soveværelse.setExit("east", badeværelse);
+        soveværelse.setExit("south", køkken);
 
-        theatre.setExit("west", outside);
+        badeværelse.setExit("west", soveværelse);
 
-        pub.setExit("east", outside);
+        køkken.setExit("north", soveværelse);
+        køkken.setExit("south", by);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        by.setExit("north", køkken);
+        by.setExit("west", strand);
 
-        office.setExit("west", lab);
+        strand.setExit("east", by);
 
-        currentRoom = outside;
+        currentRoom = soveværelse;
     }
 
     public boolean goRoom(Command command) {

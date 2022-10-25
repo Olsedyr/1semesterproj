@@ -83,6 +83,7 @@ public class CommandLineClient {
                 ///Maybe add"You can see x objects of interest"
             } else {
                 System.out.println("I see nothing in this room.");
+                ///This don't work yet
             }
 
         } else if (commandWord == Commands.QUIT) {

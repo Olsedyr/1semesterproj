@@ -69,7 +69,8 @@ public class Game {
     }
 
     public boolean lookRoom(Command command) {
-        if (command.hasCommandValue()) {
+        String roomObj = currentRoom.getObjString();
+        if(roomObj == null) {
             return false;
         } else {
             return true;

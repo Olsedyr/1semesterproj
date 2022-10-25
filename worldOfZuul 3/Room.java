@@ -38,10 +38,7 @@ public class Room
         return "You are " + description + ".\n" + getExitString();
     }
 
-    public String getRoomObjsDescription()
-    {
-        return getObjString();
-    }
+    public String getRoomObjsDescription() { return "You see:" + getObjString(); }
 
 
     private String getExitString()
@@ -54,12 +51,12 @@ public class Room
         return returnString;
     }
 
-    private String getObjString()
+    public String getObjString()
     {
-        String returnObjString = "You see:";
+        String returnObjString = "";
         Set<String> keys = objs.keySet();
         for(String obj : keys) {
-            returnObjString += "  " + obj;
+            returnObjString += "\n" + obj;
         }
         return returnObjString;
     }
@@ -69,5 +66,6 @@ public class Room
     {
         return exits.get(direction);
     }
+
 }
 

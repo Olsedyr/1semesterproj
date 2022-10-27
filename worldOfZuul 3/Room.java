@@ -33,7 +33,7 @@ public class Room
 
     private String getExitString()
     {
-        String returnString = "Exits:";
+        String returnString = "Udgange:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;

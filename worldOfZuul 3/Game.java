@@ -21,18 +21,18 @@ public class Game {
         strand = new Room("på stranden");
         badeværelse = new Room("i badeværelset");
 
-        soveværelse.setExit("east", badeværelse);
-        soveværelse.setExit("south", køkken);
+        soveværelse.setExit("øst", badeværelse);
+        soveværelse.setExit("syd", køkken);
 
-        badeværelse.setExit("west", soveværelse);
+        badeværelse.setExit("vest", soveværelse);
 
-        køkken.setExit("north", soveværelse);
-        køkken.setExit("south", by);
+        køkken.setExit("nord", soveværelse);
+        køkken.setExit("syd", by);
 
-        by.setExit("north", køkken);
-        by.setExit("west", strand);
+        by.setExit("nord", køkken);
+        by.setExit("vest", strand);
 
-        strand.setExit("east", by);
+        strand.setExit("øst", by);
 
         currentRoom = soveværelse;
     }

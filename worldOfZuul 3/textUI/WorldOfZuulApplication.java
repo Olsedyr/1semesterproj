@@ -18,5 +18,6 @@ public class WorldOfZuulApplication {
         CommandLineClient client = new CommandLineClient();
         client.play();
     }
+
     
 }

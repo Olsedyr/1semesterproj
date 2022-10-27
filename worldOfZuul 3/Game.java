@@ -5,6 +5,7 @@ import java.util.List;
 public class Game {
 
     private Room currentRoom;
+    private RoomObjs currentRoomObjs;
     private CommandWords commands;
 
     public Game() {
@@ -13,6 +14,8 @@ public class Game {
     }
 
     private void createRooms() {
+        //region Rooms Implementation
+        //---------------------------------------------------------------------------------------
         Room soveværelse, køkken, badeværelse, by, strand;
 
         ///Create Room
@@ -35,15 +38,29 @@ public class Game {
         by.setExit("strand", strand);
 
         strand.setExit("by", by);
+        //---------------------------------------------------------------------------------------
+        //endregion
 
-        ///Set Room Obj, simple, needs update
-        soveværelse.setObjs("Lys",soveværelse);
-        soveværelse.setObjs("Radiator",soveværelse);
-        soveværelse.setObjs("Vindue",soveværelse);
-        soveværelse.setObjs("Computer",soveværelse);
 
-        køkken.setObjs("køkken lys",køkken);
+        //region Room Objs Implementation
+        //---------------------------------------------------------------------------------------
+        RoomObjs lys, radiator, vindue, computer;
 
+        ///Create Room Obj
+        lys = new RoomObjs("Det er et lys");
+        radiator = new RoomObjs("Det er et radiator");
+        vindue = new RoomObjs("Det er vinduet i din rum");
+        computer = new RoomObjs("Det er dit computer");
+
+        ///Set Room Obj
+        soveværelse.setObjs("lys",soveværelse);
+        soveværelse.setObjs("radiator",soveværelse);
+        soveværelse.setObjs("vindue",soveværelse);
+        soveværelse.setObjs("computer",soveværelse);
+
+        køkken.setObjs("Køkken lys",køkken);
+        //---------------------------------------------------------------------------------------
+        //endregion
 
         currentRoom = soveværelse;
     }
@@ -85,8 +102,14 @@ public class Game {
         }
     }
 
+    //region getCommands Implementation
+    //---------------------------------------------------------------------------------------
     public String getRoomDescription() {
         return currentRoom.getLongDescription();
+    }
+
+    public String getObjDescription() {
+        return currentRoomObjs.getObjLongDescription();
     }
 
     public CommandWords getCommands() {
@@ -105,5 +128,6 @@ public class Game {
     public Command getCommand(String word1, String word2) {
         return new CommandImplementation(commands.getCommand(word1), word2);
     }
-
+    //---------------------------------------------------------------------------------------
+    //endregion
 }

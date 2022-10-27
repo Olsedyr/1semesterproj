@@ -1,12 +1,22 @@
 package worldOfZuul;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Set;
 
-public abstract class RoomObjs {
+public class RoomObjs{
+
+    private Room Room;
+
     private String name;
     private String gameObjDescription;
     private Boolean state;
     private Boolean pickable;
+
+    public RoomObjs(String gameObjDescription){
+        this.gameObjDescription = gameObjDescription;
+    }
+
 
     public RoomObjs(String name, String gameObjDescription, boolean state, boolean pickable){
         this.name = name;
@@ -24,11 +34,24 @@ public abstract class RoomObjs {
     public boolean getGameObjState(){
         return state;
     }
-
     public boolean isPickable(){
         return pickable;
     }
 
-    ///This is just a simple version, needs update
+
+    public String getObjShortDescription()
+    {
+        return gameObjDescription;
+    }
+    public String getObjLongDescription()
+    {
+        return gameObjDescription + ".\n" + getBackString();
+    }
+
+    private String getBackString()
+    {
+        return "Tast 'Back' for at gå tilbage til værelsesvisningen";
+    }
+
     ///public static ArrayList<String> objsArrayList = new ArrayList<>(Arrays.asList());
 }

@@ -50,8 +50,6 @@ public class CommandLineClient {
         }
     }
 
-
-
     //Controller
     public boolean processCommand(Command command) {
         boolean wantToQuit = false;
@@ -79,10 +77,18 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.LOOK) {
             if (game.lookRoom(command)) {
-                System.out.println(game.getRoomObjList());
+                System.out.println(game.getObjDescription());
                 ///Maybe add"You can see x objects of interest"
             } else {
                 System.out.println("Jeg ser intet i dette rum.");
+                ///This don't work yet
+            }
+
+        } else if (commandWord == Commands.USE) {
+            if (game.lookRoom(command)) {
+                System.out.println(game.getRoomObjList());
+            } else {
+                System.out.println("Jeg kan ikke gøre noget ved det.");
                 ///This don't work yet
             }
 

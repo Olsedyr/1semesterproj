@@ -13,39 +13,39 @@ public class Game {
     }
 
     private void createRooms() {
-        Room bedroom, kitchen, bathroom, town, beach;
+        Room soveværelse, køkken, badeværelse, by, strand;
 
         ///Create Room
-        bedroom = new Room("in your bedroom, this is your house");
-        kitchen = new Room("in the kitchen, there's lots to eat");
-        bathroom = new Room("in the bathroom, you clean yourself up here");
-        town = new Room("in the town, bustling as always");
-        beach = new Room("on the beach, the sand is soft under your feet");
+        soveværelse = new Room("i dit soveværelse, dette er dit hjem");
+        køkken = new Room("i køkkenet, der er masser at spise.");
+        badeværelse = new Room("i badeværelset, du kan renser dig selv her");
+        by = new Room("i byen, travl som altid");
+        strand = new Room("på stranden, sandet er blødt under din fødder");
 
         ///Set Exit
-        bedroom.setExit("kitchen", kitchen);
+        soveværelse.setExit("køkken", køkken);
 
-        kitchen.setExit("bedroom", bedroom);
-        kitchen.setExit("bathroom", bathroom);
-        kitchen.setExit("town", town);
+        køkken.setExit("soveværelse", soveværelse);
+        køkken.setExit("badeværelse", badeværelse);
+        køkken.setExit("by", by);
 
-        bathroom.setExit("kitchen", kitchen);
+        badeværelse.setExit("køkken", køkken);
 
-        town.setExit("kitchen", kitchen);
-        town.setExit("beach", beach);
+        by.setExit("køkken", køkken);
+        by.setExit("strand", strand);
 
-        beach.setExit("town", town);
+        strand.setExit("by", by);
 
         ///Set Room Obj, simple, needs update
-        bedroom.setObjs("Light",bedroom);
-        bedroom.setObjs("Heater",bedroom);
-        bedroom.setObjs("Window",bedroom);
-        bedroom.setObjs("Computer",bedroom);
+        soveværelse.setObjs("Lys",soveværelse);
+        soveværelse.setObjs("Radiator",soveværelse);
+        soveværelse.setObjs("Vindue",soveværelse);
+        soveværelse.setObjs("Computer",soveværelse);
 
-        kitchen.setObjs("Kitchen light",kitchen);
+        køkken.setObjs("køkken lys",køkken);
 
 
-        currentRoom = bedroom;
+        currentRoom = soveværelse;
     }
 
     public boolean goRoom(Command command) {

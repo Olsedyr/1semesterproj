@@ -31,14 +31,14 @@ public class CommandLineClient {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Tak fordi du spiller dette spil. Farvel.");
+        System.out.println("Tak fordi du spillede med. Vi ses!.");
     }
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Velkommen til World of Zuul!");
-        System.out.println("World of Zuul er et nyt, utroligt kedeligt eventyrspil.");
-        System.out.println("Indtast '" + Commands.HELP + "' hvis du har brug for hjælp.");
+        System.out.println("Velkommen til Klimaspillet!");
+        System.out.println("Her i Klimaspillet, der påvirker dine valg klimaet, så prøv at tage de rigtige valg!");
+        System.out.println("Skriv '" + Commands.HELP + "' hvis du her brug for hjælp.");
         System.out.println();
         System.out.println(game.getRoomDescription());
     }
@@ -62,10 +62,10 @@ public class CommandLineClient {
         }
 
         if (commandWord == Commands.HELP) {
-            System.out.println("Du er fortabt. Du er alene. Du vandrer");
-            System.out.println("rundt på universitetet.");
+            System.out.println("Du er inde i en verden hvor du skal træffe de rigtige valg for klimaet");
+            System.out.println("Prøv at undersøge væreden og se om du kan gøre en forskel!");
             System.out.println();
-            System.out.println("Dine kommandoord er:");
+            System.out.println("Kommandoerne du kan gøre brug af er:");
             printHelp();
 
         } else if (commandWord == Commands.GO) {
@@ -80,7 +80,7 @@ public class CommandLineClient {
                 System.out.println(game.getObjDescription());
                 ///Maybe add"You can see x objects of interest"
             } else {
-                System.out.println("Jeg ser intet i dette rum.");
+                System.out.println("Jeg kan ikke se nogle interessante.");
                 ///This don't work yet
             }
 

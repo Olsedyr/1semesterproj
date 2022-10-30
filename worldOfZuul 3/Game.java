@@ -5,26 +5,23 @@ import java.util.List;
 public class Game {
 
     private Room currentRoom;
-    private RoomObjs currentRoomObjs;
+    private Item currentItem;
     private CommandWords commands;
 
     public Game() {
         createRooms();
-        createRoomObjs();
         commands = new CommandWordsImplementation();
     }
 
     private void createRooms() {
-        //region Rooms Implementation
-        //---------------------------------------------------------------------------------------
+        ///Create Rooms
         Room soveværelse, køkken, badeværelse, by, strand;
 
-        ///Create Room
-        soveværelse = new Room("i dit soveværelse, dette er dit hjem");
+        soveværelse = new Room("i dit soveværelse, dette er dit hjem.");
         køkken = new Room("i køkkenet, der er masser at spise.");
-        badeværelse = new Room("i badeværelset, du kan renser dig selv her");
-        by = new Room("i byen, travl som altid");
-        strand = new Room("på stranden, sandet er blødt under din fødder");
+        badeværelse = new Room("i badeværelset, du kan renser dig selv her.");
+        by = new Room("i byen, travl som altid.");
+        strand = new Room("på stranden, sandet er blødt under din fødder.");
 
         ///Set Exit
         soveværelse.setExit("køkken", køkken);
@@ -40,32 +37,24 @@ public class Game {
 
         strand.setExit("by", by);
 
-        ///Set Room Obj
-        soveværelse.setObjs("lys", soveværelse);
-        soveværelse.setObjs("radiator", soveværelse);
-        soveværelse.setObjs("vindue", soveværelse);
-        soveværelse.setObjs("computer", soveværelse);
-
-        køkken.setObjs("Køkken lys", køkken);
-
         currentRoom = soveværelse;
-        //---------------------------------------------------------------------------------------
-        //endregion
-    }
-    private void createRoomObjs() {
-        //region Room Objs Implementation
-        //---------------------------------------------------------------------------------------
-        RoomObjs lys, radiator, vindue, computer;
 
-        ///Create Room Obj
-        lys = new RoomObjs("Det er et lys");
-        radiator = new RoomObjs("Det er et radiator");
-        vindue = new RoomObjs("Det er vinduet i din rum");
-        computer = new RoomObjs("Det er dit computer");
+        ///Create items
+        Item lys, radiator, vindue, computer;
 
+        lys = new Item("Et lys",true,false);
+        radiator = new Item("Et radiator",true,false);
+        vindue = new Item("et vindue",true,false);
+        computer = new Item("et computer",true,false);
 
-        //---------------------------------------------------------------------------------------
-        //endregion
+        ///Set Room item
+        soveværelse.setRoomItems("lys", lys);
+        soveværelse.setRoomItems("radiator", radiator);
+        soveværelse.setRoomItems("vindue", vindue);
+        soveværelse.setRoomItems("computer", computer);
+
+        køkken.setRoomItems("Køkken lys", lys);
+
     }
 
     public boolean goRoom(Command command) {
@@ -88,34 +77,26 @@ public class Game {
     }
 
     public boolean lookRoom(Command command) {
-        String roomObj = currentRoomObjs.getObjString();
-        if(roomObj == null) {
-            return false;
-        } else {
-            return true;
-        }
+        String Item = currentRoom.getRoomItemList();
+        return Item != null;
     }
 
-    public boolean useObj(Command command) {
+    public boolean useItem(Command command) {
         if (!command.hasCommandValue()) { return false;}
 
-        String objName = command.getCommandValue();
-        RoomObjs useingObj = (RoomObjs) currentRoomObjs.getObj(objName);
+        String useing = command.getCommandValue();
+        Item useingItem = currentRoom.getItem(useing);
 
-        if (useingObj == null) {
+        if (useingItem == null) {
             return false;
         } else {
-            currentRoomObjs = useingObj;
+            currentItem = useingItem;
             return true;
         }
     }
 
     public boolean quit(Command command) {
-        if (command.hasCommandValue()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !command.hasCommandValue();
     }
 
     //region getCommands Implementation
@@ -124,8 +105,8 @@ public class Game {
         return currentRoom.getLongDescription();
     }
 
-    public String getObjDescription() {
-        return currentRoomObjs.getObjLongDescription();
+    public String getItemDescription() {
+        return currentItem.getItemLongDescription();
     }
 
     public CommandWords getCommands() {
@@ -136,8 +117,8 @@ public class Game {
         return commands.getCommandWords();
     }
 
-    public String getRoomObjList() {
-        return currentRoomObjs.getRoomObjsList();
+    public String getItemList() {
+        return currentRoom.getRoomItemList();
     }
 
     public Command getCommand(String word1, String word2) {

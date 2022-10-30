@@ -77,16 +77,13 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.LOOK) {
             if (game.lookRoom(command)) {
-                System.out.println(game.getRoomObjList());
-                ///Maybe add"You can see x objects of interest"
-            } else {
-                System.out.println("Jeg kan ikke se nogle interessante.");
-                ///This don't work yet
+                System.out.println(game.getItemList());
+                ///Maybe add"You can see x itemects of interest"
             }
 
         } else if (commandWord == Commands.USE) {
-            if (game.lookRoom(command)) {
-                System.out.println(game.getRoomDescription());
+            if (game.useItem(command)) {
+                System.out.println(game.getItemDescription());
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
                 ///This don't work yet

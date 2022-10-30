@@ -6,7 +6,6 @@
 package worldOfZuul.textUI;
 
 import worldOfZuul.Command;
-import worldOfZuul.CommandWords;
 import worldOfZuul.Commands;
 import worldOfZuul.Game;
 
@@ -85,10 +84,10 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.USE) {
             if (game.useItem(command)) {
+                game.switchItemState();
                 System.out.println(game.getItemDescription());
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
-                ///This don't work yet
             }
 
         } else if (commandWord == Commands.QUIT) {

@@ -14,7 +14,7 @@ public class Room{
         this.description = description;
         exits = new HashMap<String, Room>();
         roomItems = new HashMap<String, Item>();
-        }
+    }
 
 
     public void setExit(String direction, Room neighbor) {
@@ -34,13 +34,13 @@ public class Room{
 
 
     public String getRoomItemList() {
-        return "Du ser " + roomItems.size() + " genstand af interesse:" + "\n" + getItemString();
+        return "Du ser " + roomItems.size() + " objekt af interesse:" + getItemString();
     }
     private String getItemString(){
         String returnString = "";
         Set<String> keys = roomItems.keySet();
         for(String roomItem : keys) {
-            returnString += roomItem + " ";
+            returnString += "\n" + "- " + roomItem;
         }
         return returnString;
     }

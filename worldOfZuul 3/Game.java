@@ -100,7 +100,21 @@ public class Game {
     }
 
     public boolean useItem(Command command) {
-        return true;
+        if (!command.hasCommandValue()) {
+            return false;
+        }
+        String itemName = command.getCommandValue();
+        Item useingItem = currentRoom.getItem(itemName);
+        if (useingItem == null) {
+            return false;
+        } else {
+            currentItem = useingItem;
+            return true;
+        }
+    }
+
+    public void switchItemState() {
+        currentItem.toggleState^=true;
     }
 
     public boolean quit(Command command) {

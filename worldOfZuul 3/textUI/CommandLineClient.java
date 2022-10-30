@@ -77,7 +77,7 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.LOOK) {
             if (game.lookRoom(command)) {
-                System.out.println(game.getObjDescription());
+                System.out.println(game.getRoomObjList());
                 ///Maybe add"You can see x objects of interest"
             } else {
                 System.out.println("Jeg kan ikke se nogle interessante.");
@@ -86,7 +86,7 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.USE) {
             if (game.lookRoom(command)) {
-                System.out.println(game.getRoomObjList());
+                System.out.println(game.getRoomDescription());
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
                 ///This don't work yet

@@ -10,6 +10,7 @@ public class Game {
 
     public Game() {
         createRooms();
+        createRoomObjs();
         commands = new CommandWordsImplementation();
     }
 
@@ -38,10 +39,20 @@ public class Game {
         by.setExit("strand", strand);
 
         strand.setExit("by", by);
+
+        ///Set Room Obj
+        soveværelse.setObjs("lys", soveværelse);
+        soveværelse.setObjs("radiator", soveværelse);
+        soveværelse.setObjs("vindue", soveværelse);
+        soveværelse.setObjs("computer", soveværelse);
+
+        køkken.setObjs("Køkken lys", køkken);
+
+        currentRoom = soveværelse;
         //---------------------------------------------------------------------------------------
         //endregion
-
-
+    }
+    private void createRoomObjs() {
         //region Room Objs Implementation
         //---------------------------------------------------------------------------------------
         RoomObjs lys, radiator, vindue, computer;
@@ -52,17 +63,9 @@ public class Game {
         vindue = new RoomObjs("Det er vinduet i din rum");
         computer = new RoomObjs("Det er dit computer");
 
-        ///Set Room Obj
-        soveværelse.setObjs("lys",soveværelse);
-        soveværelse.setObjs("radiator",soveværelse);
-        soveværelse.setObjs("vindue",soveværelse);
-        soveværelse.setObjs("computer",soveværelse);
 
-        køkken.setObjs("Køkken lys",køkken);
         //---------------------------------------------------------------------------------------
         //endregion
-
-        currentRoom = soveværelse;
     }
 
     public boolean goRoom(Command command) {
@@ -74,7 +77,6 @@ public class Game {
         }
 
         String direction = command.getCommandValue();
-
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
@@ -86,10 +88,24 @@ public class Game {
     }
 
     public boolean lookRoom(Command command) {
-        String roomObj = currentRoom.getObjString();
+        String roomObj = currentRoomObjs.getObjString();
         if(roomObj == null) {
             return false;
         } else {
+            return true;
+        }
+    }
+
+    public boolean useObj(Command command) {
+        if (!command.hasCommandValue()) { return false;}
+
+        String objName = command.getCommandValue();
+        RoomObjs useingObj = (RoomObjs) currentRoomObjs.getObj(objName);
+
+        if (useingObj == null) {
+            return false;
+        } else {
+            currentRoomObjs = useingObj;
             return true;
         }
     }
@@ -120,9 +136,8 @@ public class Game {
         return commands.getCommandWords();
     }
 
-    public String getRoomObjList()
-    {
-        return currentRoom.getRoomObjsDescription();
+    public String getRoomObjList() {
+        return currentRoomObjs.getRoomObjsList();
     }
 
     public Command getCommand(String word1, String word2) {

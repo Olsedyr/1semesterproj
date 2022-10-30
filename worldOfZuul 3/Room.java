@@ -3,43 +3,36 @@ package worldOfZuul;
 import java.util.Set;
 import java.util.HashMap;
 
-
-public class Room 
-{
+public class Room{
+    private RoomObjs RoomObjs;
     private String description;
     private HashMap<String, Room> exits;
-    public HashMap<String, Room> objs;
 
-    public Room(String description) 
-    {
+
+
+    public Room(String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
-        objs = new HashMap<String, Room>();
     }
 
-    public void setExit(String direction, Room neighbor) 
-    {
+    public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
-    public void setObjs(String objName,Room current)
-    {
-        objs.put(objName,current);
+    ///RoomObjs listMap to Room
+    private void ObjMap () {
+        HashMap<String, Room> objsMap = RoomObjs.getObjsMap();
+    }
+    public void setObjs(String objName,Room current) {
+        ObjMap();
     }
 
-
-    public String getShortDescription()
-    {
+    public String getShortDescription() {
         return description;
     }
-
-    public String getLongDescription()
-    {
+    public String getLongDescription() {
         return "Du er " + description + ".\n" + getExitString();
     }
-
-    public String getRoomObjsDescription() { return "Du ser:" + getObjString(); }
-
 
     private String getExitString()
     {
@@ -51,21 +44,7 @@ public class Room
         return returnString;
     }
 
-    public String getObjString()
-    {
-        String returnObjString = "";
-        Set<String> keys = objs.keySet();
-        for(String obj : keys) {
-            returnObjString += "\n" + obj;
-        }
-        return returnObjString;
-    }
-
-
-    public Room getExit(String direction)
-    {
-        return exits.get(direction);
-    }
+    public Room getExit(String direction) { return exits.get(direction);}
 
 }
 

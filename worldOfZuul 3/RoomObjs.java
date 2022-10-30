@@ -1,37 +1,31 @@
 package worldOfZuul;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.Set;
+import java.util.HashMap;
 
 public class RoomObjs{
 
     private Room Room;
+    private String objDescription;
+    private HashMap<String, Room> objs = new HashMap<String, Room>();
 
     private String name;
-    private String gameObjDescription;
     private Boolean state;
     private Boolean pickable;
 
-    public RoomObjs(String gameObjDescription){
-        this.gameObjDescription = gameObjDescription;
+
+    public RoomObjs(String objDescription){
+        this.objDescription = objDescription;
     }
 
-
-    public RoomObjs(String name, String gameObjDescription, boolean state, boolean pickable){
-        this.name = name;
-        this.gameObjDescription = gameObjDescription;
-        this.state = state;
-        this.pickable = pickable;
+    public HashMap<String, worldOfZuul.Room> getObjsMap() {
+        return objs;
     }
 
-    public String getGameObjName(){
-        return name;
+    public String getObjDescription(){
+        return objDescription;
     }
-    public String getGameObjDescription(){
-        return gameObjDescription;
-    }
-    public boolean getGameObjState(){
+    public boolean getObjState(){
         return state;
     }
     public boolean isPickable(){
@@ -39,19 +33,34 @@ public class RoomObjs{
     }
 
 
-    public String getObjShortDescription()
-    {
-        return gameObjDescription;
+    public String getObjShortDescription() {
+        return objDescription;
     }
-    public String getObjLongDescription()
-    {
-        return gameObjDescription + ".\n" + getBackString();
+    public String getObjLongDescription() {
+        return objDescription + ".\n" + getBackString();
     }
 
-    private String getBackString()
+    public String getRoomObjsList() { return "Du ser:" + getObjString(); }
+
+
+
+    public String getObjString()
     {
-        return "Tast 'Back' for at gå tilbage til værelsesvisningen";
+        String returnObjString = "";
+        Set<String> keys = objs.keySet();
+        for(String obj : keys) {
+            returnObjString += "\n" + obj;
+        }
+        return returnObjString;
     }
 
-    ///public static ArrayList<String> objsArrayList = new ArrayList<>(Arrays.asList());
+    private String getBackString() {
+        return "Tast 'Back' for at gå tilbage til værelsesvisningen"; ///missing
+    }
+
+    public Object getObj(String objName) { return objs.get(objName);
+    }
+
+
+
 }

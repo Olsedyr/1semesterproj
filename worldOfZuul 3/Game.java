@@ -17,11 +17,11 @@ public class Game {
         ///Create Rooms
         Room soveværelse, køkken, badeværelse, by, strand;
 
-        soveværelse = new Room("i dit soveværelse, dette er dit hjem.");
-        køkken = new Room("i køkkenet, der er masser at spise.");
-        badeværelse = new Room("i badeværelset, du kan renser dig selv her.");
-        by = new Room("i byen, travl som altid.");
-        strand = new Room("på stranden, sandet er blødt under din fødder.");
+        soveværelse = new Room("i dit soveværelse, dette er dit hjem");
+        køkken = new Room("i køkkenet, der er masser at spise");
+        badeværelse = new Room("i badeværelset, du kan renser dig selv her");
+        by = new Room("i byen, travl som altid");
+        strand = new Room("på stranden, sandet er blødt under din fødder");
 
         ///Set Exit
         soveværelse.setExit("køkken", køkken);
@@ -40,29 +40,30 @@ public class Game {
         currentRoom = soveværelse;
 
         ///Create items
-        Item lys, radiator, vindue, computer;
+        Item soveværelseLys, radiator, vindue, computer,køkkenLys;
 
-        lys = new Item("Et lys",true,false);
-        radiator = new Item("Et radiator",true,false);
-        vindue = new Item("et vindue",true,false);
-        computer = new Item("et computer",true,false);
+        soveværelseLys = new Item("Det er lyset i din soveværelse",1,true,false);
+        radiator = new Item("Det er radiatoren i din soveværelse",4,true,false);
+        vindue = new Item("Det er vinduet i din hus",1,true,false);
+        computer = new Item("Det er dit computer",2,true,false);
+
+        køkkenLys = new Item("Det er et lys i din køkken",1,true,false);
 
         ///Set Room item
-        soveværelse.setRoomItems("lys", lys);
+        soveværelse.setRoomItems("lys", soveværelseLys);
         soveværelse.setRoomItems("radiator", radiator);
         soveværelse.setRoomItems("vindue", vindue);
         soveværelse.setRoomItems("computer", computer);
 
-        køkken.setRoomItems("Køkken lys", lys);
+        køkken.setRoomItems("lys", køkkenLys);
 
     }
 
     public boolean goRoom(Command command) {
-
         if (!command.hasCommandValue()) {
             //No direction on command.
             //Can't continue with GO command.
-            return false;
+            System.out.println("Har brug for en retning at gå til.");
         }
 
         String direction = command.getCommandValue();
@@ -77,22 +78,29 @@ public class Game {
     }
 
     public boolean lookRoom(Command command) {
+        if(command.hasCommandValue()) {
+            return false;
+        }
         String Item = currentRoom.getRoomItemList();
         return Item != null;
     }
 
-    public boolean useItem(Command command) {
-        if (!command.hasCommandValue()) { return false;}
-
-        String useing = command.getCommandValue();
-        Item useingItem = currentRoom.getItem(useing);
-
+    public boolean lookItem(Command command) {
+        if (!command.hasCommandValue()) {
+            return false;
+        }
+        String itemName = command.getCommandValue();
+        Item useingItem = currentRoom.getItem(itemName);
         if (useingItem == null) {
             return false;
         } else {
             currentItem = useingItem;
             return true;
         }
+    }
+
+    public boolean useItem(Command command) {
+        return true;
     }
 
     public boolean quit(Command command) {
@@ -124,6 +132,8 @@ public class Game {
     public Command getCommand(String word1, String word2) {
         return new CommandImplementation(commands.getCommand(word1), word2);
     }
+
+
     //---------------------------------------------------------------------------------------
     //endregion
 }

@@ -21,8 +21,8 @@ public class Room{
         exits.put(direction, neighbor);
     }
 
-    public void setRoomItems(String useing, Item Item){
-        roomItems.put(useing,Item);
+    public void setRoomItems(String itemName, Item Item){
+        roomItems.put(itemName,Item);
     }
 
     public String getShortDescription() {
@@ -34,13 +34,13 @@ public class Room{
 
 
     public String getRoomItemList() {
-        return "Du ser: " + getItemString();
+        return "Du ser " + roomItems.size() + " genstand af interesse:" + "\n" + getItemString();
     }
     private String getItemString(){
         String returnString = "";
         Set<String> keys = roomItems.keySet();
         for(String roomItem : keys) {
-            returnString += " " + roomItem;
+            returnString += roomItem + " ";
         }
         return returnString;
     }
@@ -55,7 +55,7 @@ public class Room{
     }
 
     public Room getExit(String direction) { return exits.get(direction);}
-    public Item getItem(String useing) { return roomItems.get(useing);}
+    public Item getItem(String itemName) { return roomItems.get(itemName);}
 
 }
 

@@ -6,6 +6,7 @@
 package worldOfZuul.textUI;
 
 import worldOfZuul.Command;
+import worldOfZuul.CommandWords;
 import worldOfZuul.Commands;
 import worldOfZuul.Game;
 
@@ -78,7 +79,8 @@ public class CommandLineClient {
         } else if (commandWord == Commands.LOOK) {
             if (game.lookRoom(command)) {
                 System.out.println(game.getItemList());
-                ///Maybe add"You can see x itemects of interest"
+            }else if(game.lookItem(command)) {
+                System.out.println(game.getItemDescription());
             }
 
         } else if (commandWord == Commands.USE) {

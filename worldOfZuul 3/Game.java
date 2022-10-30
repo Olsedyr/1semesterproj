@@ -111,6 +111,7 @@ public class Game {
             currentItem = useingItem;
             return true;
         }
+        //}if(currentItem.getPickable()==true) {Room.moveItems();}
     }
 
     public void switchItemState() {

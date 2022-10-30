@@ -45,6 +45,8 @@ public class Room{
         return returnString;
     }
 
+    //public static void moveItems() {}
+
     private String getExitString() {
         String returnString = "Udgange:";
         Set<String> keys = exits.keySet();

@@ -37,8 +37,6 @@ public class Item{
         String returnString = "";
         if(getPickable() == true){
             returnString = ", du kan samle den op";
-        } else {
-            returnString = ", du kan ikke samle den op";
         }
         return returnString;
     }

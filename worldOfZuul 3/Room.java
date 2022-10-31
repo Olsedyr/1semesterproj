@@ -32,7 +32,6 @@ public class Room{
         return "Du er " + description + ".\n" + getExitString();
     }
 
-
     public String getRoomItemList() {
         return "Du ser " + roomItems.size() + " objekt af interesse:" + getItemString();
     }

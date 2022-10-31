@@ -1,7 +1,5 @@
 package worldOfZuul;
 
-import java.util.Set;
-
 public class Item{
 
 
@@ -22,10 +20,9 @@ public class Item{
     }
 
 
-
     private String toggleStateString(){
         String returnString = "";
-        if(getItemState() == true){
+        if(getItemState()){
             returnString = "den er tændt/åben";
         } else {
             returnString = "den er slukket/lukket";
@@ -35,7 +32,7 @@ public class Item{
 
     private String pickableString(){
         String returnString = "";
-        if(getPickable() == true){
+        if(getPickable()){
             returnString = ", du kan samle den op";
         }
         return returnString;

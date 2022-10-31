@@ -40,14 +40,18 @@ public class Game {
         currentRoom = soveværelse;
 
         ///Create items
-        Item soveværelseLys, radiator, vindue, computer,køkkenLys;
+        Item soveværelseLys, radiator, vindue, computer,
+                køkkenLys, tv, vand;
 
         soveværelseLys = new Item("Det er lyset i din soveværelse",1,true,false);
-        radiator = new Item("Det er radiatoren i din soveværelse",4,true,false);
+        radiator = new Item("Det er radiatoren i din soveværelse",5,true,false);
         vindue = new Item("Det er vinduet i din hus",1,true,false);
         computer = new Item("Det er dit computer",2,true,false);
 
         køkkenLys = new Item("Det er et lys i din køkken",1,true,false);
+        tv = new Item("Det er et TV i din hus",3,true,false);
+
+        vand = new Item("Det er et TV i din hus",3,true,false);
 
         ///Set Room item
         soveværelse.setRoomItems("lys", soveværelseLys);
@@ -56,6 +60,9 @@ public class Game {
         soveværelse.setRoomItems("computer", computer);
 
         køkken.setRoomItems("lys", køkkenLys);
+        køkken.setRoomItems("tv", tv);
+
+        badeværelse.setRoomItems("vand", vand);
 
     }
 
@@ -84,7 +91,6 @@ public class Game {
         String Item = currentRoom.getRoomItemList();
         return Item != null;
     }
-
     public boolean lookItem(Command command) {
         if (!command.hasCommandValue()) {
             return false;
@@ -111,7 +117,7 @@ public class Game {
             currentItem = useingItem;
             return true;
         }
-        //}if(currentItem.getPickable()==true) {Room.moveItems();}
+        //}if(currentItem.getPickable()==true) {Inventory.moveItems();}
     }
 
     public void switchItemState() {
@@ -147,7 +153,6 @@ public class Game {
     public Command getCommand(String word1, String word2) {
         return new CommandImplementation(commands.getCommand(word1), word2);
     }
-
 
     //---------------------------------------------------------------------------------------
     //endregion

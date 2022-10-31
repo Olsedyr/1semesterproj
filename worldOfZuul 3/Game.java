@@ -14,16 +14,15 @@ public class Game {
     }
 
     private void createRooms() {
-        ///Create Rooms
+        //region ------------------Rooms------------------
         Room soveværelse, køkken, badeværelse, by, strand;
-
         soveværelse = new Room("i dit soveværelse, dette er dit hjem");
         køkken = new Room("i køkkenet, der er masser at spise");
         badeværelse = new Room("i badeværelset, du kan renser dig selv her");
         by = new Room("i byen, travl som altid");
         strand = new Room("på stranden, sandet er blødt under din fødder");
 
-        ///Set Exit
+        ///Set Exitshuidou
         soveværelse.setExit("køkken", køkken);
 
         køkken.setExit("soveværelse", soveværelse);
@@ -38,20 +37,26 @@ public class Game {
         strand.setExit("by", by);
 
         currentRoom = soveværelse;
+        //endregion
 
-        ///Create items
-        Item soveværelseLys, radiator, vindue, computer,
-                køkkenLys, tv, vand;
+        //region ------------------Items------------------
+        Item.ToggleItem soveværelseLys, radiator, vindue, computer, køkkenLys, tv, vandhane;
+        soveværelseLys = new Item.ToggleItem("Det er lyset i din soveværelse",1,true);
+        radiator = new Item.ToggleItem("Det er radiatoren i din soveværelse",5,true);
+        vindue = new Item.ToggleItem("Det er vinduet i din hus",1,true);
+        computer = new Item.ToggleItem("Det er dit computer",2,true);
+        køkkenLys = new Item.ToggleItem("Det er et lys i din køkken",1,true);
+        tv = new Item.ToggleItem("Det er et TV i din hus",3,true);
+        vandhane = new Item.ToggleItem("Det er et vandhane i badeværelse",3,true);
 
-        soveværelseLys = new Item("Det er lyset i din soveværelse",1,true,false);
-        radiator = new Item("Det er radiatoren i din soveværelse",5,true,false);
-        vindue = new Item("Det er vinduet i din hus",1,true,false);
-        computer = new Item("Det er dit computer",2,true,false);
+        Item.ChoiceItem køleskab, oven, bruser, badekar, cykel, bill;
+        køleskab = new Item.ChoiceItem("Det er køleskabet i dit køkken, " + "med ingredienserne indeni kan du lave en økologisk salat med kylling.", 2,false);
+        oven = new Item.ChoiceItem("Det er ovnen i dit køkken, " + "med den kan du lave bagt oksekød.",0,false);
+        bruser = new Item.ChoiceItem("Det er lyset i din soveværelse",3,false);
+        badekar = new Item.ChoiceItem("Det er lyset i din soveværelse",0,false);
+        cykel = new Item.ChoiceItem("Det er lyset i din soveværelse",3,false);
+        bill = new Item.ChoiceItem("Det er lyset i din soveværelse",0,false);
 
-        køkkenLys = new Item("Det er et lys i din køkken",1,true,false);
-        tv = new Item("Det er et TV i din hus",3,true,false);
-
-        vand = new Item("Det er et TV i din hus",3,true,false);
 
         ///Set Room item
         soveværelse.setRoomItems("lys", soveværelseLys);
@@ -61,9 +66,16 @@ public class Game {
 
         køkken.setRoomItems("lys", køkkenLys);
         køkken.setRoomItems("tv", tv);
+        køkken.setRoomItems("køleskab", køleskab);
+        køkken.setRoomItems("oven", oven);
 
-        badeværelse.setRoomItems("vand", vand);
+        badeværelse.setRoomItems("vandhane", vandhane);
+        badeværelse.setRoomItems("bruser", bruser);
+        badeværelse.setRoomItems("badekar", badekar);
 
+        by.setRoomItems("cykel", cykel);
+        by.setRoomItems("bill", bill);
+        //endregion
     }
 
     public boolean goRoom(Command command) {

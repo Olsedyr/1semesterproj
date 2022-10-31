@@ -2,39 +2,27 @@ package worldOfZuul;
 
 public class Item{
 
-
     private String itemDescription;
     private int points;
     public boolean toggleState;
-    private boolean pickable;
+    public boolean used = false;
 
-    public Item(String itemDescirption,int points,boolean toggleState, boolean pickable){
+    public Item(String itemDescirption,int points){
         this.itemDescription = itemDescirption;
         this.points = points;
-        this.toggleState = toggleState;
-        this.pickable = pickable;
     }
 
     public String getItemLongDescription(){
-        return itemDescription + ", " + toggleStateString() + pickableString() + ".";
+        return itemDescription + toggleStateString() + ".";
     }
-
 
     private String toggleStateString(){
         String returnString = "";
-        if(getItemState()){
-            returnString = "den er tændt/åben";
-        } else {
-            returnString = "den er slukket/lukket";
-        }
-        return returnString;
-    }
-
-    private String pickableString(){
-        String returnString = "";
-        if(getPickable()){
-            returnString = ", du kan samle den op";
-        }
+            if (getItemState()) {
+                returnString = ", den er tændt/åben";
+            } else {
+                returnString = ", den er slukket/lukket";
+            }
         return returnString;
     }
 
@@ -44,9 +32,22 @@ public class Item{
     public boolean getItemState(){
         return toggleState;
     }
-    public boolean getPickable(){
-        return pickable;
+    public boolean getItemUsed(){
+        return used;
     }
 
 
+    public static class ToggleItem extends Item{
+        public ToggleItem(String itemDescirption, int points, boolean toggleState) {
+            super(itemDescirption, points);
+            this.toggleState = toggleState;
+        }
+    }
+
+    public static class ChoiceItem extends Item{
+        public ChoiceItem(String itemDescirption, int points, boolean used) {
+            super(itemDescirption, points);
+            this.used = used;
+        }
+    }
 }

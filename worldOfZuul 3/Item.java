@@ -5,7 +5,8 @@ public class Item{
     private String itemDescription;
     private int points;
     public boolean toggleState;
-    public boolean used = false;
+    public boolean used;
+    public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
         this.itemDescription = itemDescirption;
@@ -13,7 +14,7 @@ public class Item{
     }
 
     public String getItemLongDescription(){
-        return itemDescription + toggleStateString() + ".";
+        return itemDescription + toggleStateString() + "."; ///The Choice Item also show toggleStateString, which it shouldn't.
     }
 
     private String toggleStateString(){
@@ -25,6 +26,8 @@ public class Item{
             }
         return returnString;
     }
+
+    ///Need method that remove Choice Item when boolean used is true
 
     public int getItemPoints(){
         return points;
@@ -48,6 +51,13 @@ public class Item{
         public ChoiceItem(String itemDescirption, int points, boolean used) {
             super(itemDescirption, points);
             this.used = used;
+        }
+    }
+
+    public static class TrashItem extends Item{
+        public TrashItem(String itemDescirption, int points, boolean pickedUp) {
+            super(itemDescirption, points);
+            this.pickedUp = pickedUp;
         }
     }
 }

@@ -3,7 +3,7 @@ package worldOfZuul;
 import java.util.ArrayList;
 
 public class Inventory {
-
+    ///Inventory that stores the trash player picked up in the game, need remove HashMap Item method in the Room class
     private ArrayList<Item> items;
     Inventory (ArrayList<Item> items) {
         this.items = items;

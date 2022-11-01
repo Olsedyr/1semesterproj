@@ -50,24 +50,33 @@ public class Game {
         vandhane = new Item.ToggleItem("Det er et vandhane i badeværelse",3,true);
 
         Item.ChoiceItem køleskab, oven, bruser, badekar, cykel, bill;
-        køleskab = new Item.ChoiceItem("Det er køleskabet i dit køkken, " + "med ingredienserne indeni kan du lave en økologisk salat med kylling.", 2,false);
-        oven = new Item.ChoiceItem("Det er ovnen i dit køkken, " + "med den kan du lave bagt oksekød.",0,false);
-        bruser = new Item.ChoiceItem("Det er lyset i din soveværelse",3,false);
-        badekar = new Item.ChoiceItem("Det er lyset i din soveværelse",0,false);
-        cykel = new Item.ChoiceItem("Det er lyset i din soveværelse",3,false);
-        bill = new Item.ChoiceItem("Det er lyset i din soveværelse",0,false);
+        køleskab = new Item.ChoiceItem("Det er køleskabet i dit køkken, med ingredienserne indeni kan du lave en økologisk salat med kylling.", 2,false);
+        oven = new Item.ChoiceItem("Det er ovnen i dit køkken, med den kan du lave bagt oksekød.",0,false);
+        bruser = new Item.ChoiceItem("Det er bruseren på dit badeværelse, du kan tage et brusebad her.",3,false);
+        badekar = new Item.ChoiceItem("Det er badekarret på dit badeværelse, du kan tage et bad her.",0,false);
+        cykel = new Item.ChoiceItem("Du kan tage til stranden ved at cykle.",3,false);
+        bill = new Item.ChoiceItem("Du kan tage til stranden ved at køre.",0,false);
 
+        Item.TrashItem silkepapir, sodavandsdåser, pizzaæske, mælkekande;
+        silkepapir = new Item.TrashItem("Brugt silkepapir.",0,false);
+        sodavandsdåser = new Item.TrashItem("Tomme sodavandsdåser som du drak i går.",0,false);
+        pizzaæske = new Item.TrashItem("Tom pizzaæske, olien fra pizzaen pletter pizzaboksen.",0,false);
+        mælkekande = new Item.TrashItem("Tom mælkekande，du har endda vasket det og foldet det sammen。",0,false);
 
         ///Set Room item
         soveværelse.setRoomItems("lys", soveværelseLys);
         soveværelse.setRoomItems("radiator", radiator);
         soveværelse.setRoomItems("vindue", vindue);
         soveværelse.setRoomItems("computer", computer);
+        soveværelse.setRoomItems("silkepapir", silkepapir);
+        soveværelse.setRoomItems("sodavandsdåser", sodavandsdåser);
 
         køkken.setRoomItems("lys", køkkenLys);
         køkken.setRoomItems("tv", tv);
         køkken.setRoomItems("køleskab", køleskab);
         køkken.setRoomItems("oven", oven);
+        køkken.setRoomItems("pizzaæske", pizzaæske);
+        køkken.setRoomItems("mælkekande", mælkekande);
 
         badeværelse.setRoomItems("vandhane", vandhane);
         badeværelse.setRoomItems("bruser", bruser);
@@ -129,7 +138,7 @@ public class Game {
             currentItem = useingItem;
             return true;
         }
-        //}if(currentItem.getPickable()==true) {Inventory.moveItems();}
+        //}if(currentItem.used()==true) {Inventory.moveItems();}
     }
 
     public void switchItemState() {

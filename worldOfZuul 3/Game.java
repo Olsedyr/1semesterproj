@@ -5,6 +5,7 @@ import java.util.List;
 public class Game {
 
     private Room currentRoom;
+    private RoomObjs currentRoomObjs;
     private CommandWords commands;
 
     public Game() {
@@ -13,26 +14,53 @@ public class Game {
     }
 
     private void createRooms() {
-        Room soveværelse, badeværelse, by, strand, køkken;
+        //region Rooms Implementation
+        //---------------------------------------------------------------------------------------
+        Room soveværelse, køkken, badeværelse, by, strand;
 
-        soveværelse = new Room("i dit soveværelse");
-        køkken = new Room("i dit køkken");
-        by = new Room("i byen");
-        strand = new Room("på stranden");
-        badeværelse = new Room("i badeværelset");
+        ///Create Room
+        soveværelse = new Room("i dit soveværelse, dette er dit hjem");
+        køkken = new Room("i køkkenet, der er masser at spise.");
+        badeværelse = new Room("i badeværelset, du kan renser dig selv her");
+        by = new Room("i byen, travl som altid");
+        strand = new Room("på stranden, sandet er blødt under din fødder");
 
-        soveværelse.setExit("east", badeværelse);
-        soveværelse.setExit("south", køkken);
+        ///Set Exit
+        soveværelse.setExit("køkken", køkken);
 
-        badeværelse.setExit("west", soveværelse);
+        køkken.setExit("soveværelse", soveværelse);
+        køkken.setExit("badeværelse", badeværelse);
+        køkken.setExit("by", by);
 
-        køkken.setExit("north", soveværelse);
-        køkken.setExit("south", by);
+        badeværelse.setExit("køkken", køkken);
 
-        by.setExit("north", køkken);
-        by.setExit("west", strand);
+        by.setExit("køkken", køkken);
+        by.setExit("strand", strand);
 
-        strand.setExit("east", by);
+        strand.setExit("by", by);
+        //---------------------------------------------------------------------------------------
+        //endregion
+
+
+        //region Room Objs Implementation
+        //---------------------------------------------------------------------------------------
+        RoomObjs lys, radiator, vindue, computer;
+
+        ///Create Room Obj
+        lys = new RoomObjs("Det er et lys");
+        radiator = new RoomObjs("Det er et radiator");
+        vindue = new RoomObjs("Det er vinduet i din rum");
+        computer = new RoomObjs("Det er dit computer");
+
+        ///Set Room Obj
+        soveværelse.setObjs("lys",soveværelse);
+        soveværelse.setObjs("radiator",soveværelse);
+        soveværelse.setObjs("vindue",soveværelse);
+        soveværelse.setObjs("computer",soveværelse);
+
+        køkken.setObjs("Køkken lys",køkken);
+        //---------------------------------------------------------------------------------------
+        //endregion
 
         currentRoom = soveværelse;
     }
@@ -57,6 +85,15 @@ public class Game {
         }
     }
 
+    public boolean lookRoom(Command command) {
+        String roomObj = currentRoom.getObjString();
+        if(roomObj == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public boolean quit(Command command) {
         if (command.hasCommandValue()) {
             return false;
@@ -65,8 +102,14 @@ public class Game {
         }
     }
 
+    //region getCommands Implementation
+    //---------------------------------------------------------------------------------------
     public String getRoomDescription() {
         return currentRoom.getLongDescription();
+    }
+
+    public String getObjDescription() {
+        return currentRoomObjs.getObjLongDescription();
     }
 
     public CommandWords getCommands() {
@@ -77,8 +120,14 @@ public class Game {
         return commands.getCommandWords();
     }
 
+    public String getRoomObjList()
+    {
+        return currentRoom.getRoomObjsDescription();
+    }
+
     public Command getCommand(String word1, String word2) {
         return new CommandImplementation(commands.getCommand(word1), word2);
     }
-
+    //---------------------------------------------------------------------------------------
+    //endregion
 }

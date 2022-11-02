@@ -36,10 +36,13 @@ public class CommandLineClient {
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Velkommen til Klimaspillet!");
-        System.out.println("Her i Klimaspillet, der påvirker dine valg klimaet, så prøv at tage de rigtige valg!");
-        System.out.println("Skriv '" + Commands.HELP + "' hvis du her brug for hjælp.");
+        System.out.println("###### Velkommen til Klimaspillet! ######");
+        System.out.println("Her i Klimaspillet, påvirker dine valg klimaet, så prøv dit bedste for at hjælpe klimaet!");
+        System.out.println("Du kan 'gå' til forskellige steder, 'kigge' på objekter og 'brug' objekter.");
+        System.out.println("Skriv '" + Commands.HELP + "' hvis du har brug for hjælp.");
+        System.out.println("Held og lykke! :P");
         System.out.println();
+        System.out.println("Du vågner op fra din søvn, det er eftermiddagen.");
         System.out.println(game.getRoomDescription());
     }
 
@@ -77,19 +80,19 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.LOOK) {
             if (game.lookRoom(command)) {
-                System.out.println(game.getObjDescription());
-                ///Maybe add"You can see x objects of interest"
-            } else {
-                System.out.println("Jeg kan ikke se nogle interessante.");
-                ///This don't work yet
+                System.out.println(game.getItemList());
+            }else if(game.lookItem(command)) {
+                System.out.println(game.getItemDescription());
+            }else{
+                System.out.println("Kan ikke se noget.");
             }
 
         } else if (commandWord == Commands.USE) {
-            if (game.lookRoom(command)) {
-                System.out.println(game.getRoomObjList());
+            if (game.useItem(command)) {
+                game.switchItemState();
+                System.out.println(game.getItemDescription());
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
-                ///This don't work yet
             }
 
         } else if (commandWord == Commands.QUIT) {

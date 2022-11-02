@@ -31,15 +31,18 @@ public class CommandLineClient {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Tak fordi du spillede med. Vi ses!.");
     }
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type '" + Commands.HELP + "' if you need help.");
+        System.out.println("###### Velkommen til Klimaspillet! ######");
+        System.out.println("Her i Klimaspillet, påvirker dine valg klimaet, så prøv dit bedste for at hjælpe klimaet!");
+        System.out.println("Du kan 'gå' til forskellige steder, 'kigge' på objekter og 'brug' objekter.");
+        System.out.println("Skriv '" + Commands.HELP + "' hvis du har brug for hjælp.");
+        System.out.println("Held og lykke! :P");
         System.out.println();
+        System.out.println("Du vågner op fra din søvn, det er eftermiddagen.");
         System.out.println(game.getRoomDescription());
     }
 
@@ -57,27 +60,46 @@ public class CommandLineClient {
         Commands commandWord = command.getCommandName();
 
         if (commandWord == Commands.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Jeg ved ikke hvad du mener...");
             return false;
         }
 
         if (commandWord == Commands.HELP) {
-            System.out.println("You are lost. You are alone. You wander");
-            System.out.println("around at the university.");
+            System.out.println("Du er inde i en verden hvor du skal træffe de rigtige valg for klimaet");
+            System.out.println("Prøv at undersøge væreden og se om du kan gøre en forskel!");
             System.out.println();
-            System.out.println("Your command words are:");
+            System.out.println("Kommandoerne du kan gøre brug af er:");
             printHelp();
+
         } else if (commandWord == Commands.GO) {
             if (game.goRoom(command)) {
                 System.out.println(game.getRoomDescription());
             } else {
-                System.out.println("Can't walk in that direction.");
+                System.out.println("Kan ikke gå i den retning.");
             }
+
+        } else if (commandWord == Commands.LOOK) {
+            if (game.lookRoom(command)) {
+                System.out.println(game.getItemList());
+            }else if(game.lookItem(command)) {
+                System.out.println(game.getItemDescription());
+            }else{
+                System.out.println("Kan ikke se noget.");
+            }
+
+        } else if (commandWord == Commands.USE) {
+            if (game.useItem(command)) {
+                game.switchItemState();
+                System.out.println(game.getItemDescription());
+            } else {
+                System.out.println("Jeg kan ikke gøre noget ved det.");
+            }
+
         } else if (commandWord == Commands.QUIT) {
             if (game.quit(command)) {
                 wantToQuit = true;
             } else {
-                System.out.println("Quit what?");
+                System.out.println("Afslut hvad?");
             }
 
         }

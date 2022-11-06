@@ -2,52 +2,38 @@ package worldOfZuul;
 
 import java.util.Set;
 import java.util.HashMap;
+import java.util.Iterator;
 
-public class Room{
 
+public class Room 
+{
     private String description;
     private HashMap<String, Room> exits;
-    private HashMap<String, Item> roomItems;
 
-
-    public Room(String description) {
+    public Room(String description) 
+    {
         this.description = description;
         exits = new HashMap<String, Room>();
-        roomItems = new HashMap<String, Item>();
     }
 
-
-    public void setExit(String direction, Room neighbor) {
+    public void setExit(String direction, Room neighbor) 
+    {
         exits.put(direction, neighbor);
     }
 
-    public void setRoomItems(String itemName, Item Item){
-        roomItems.put(itemName,Item);
-    }
-
-    public String getShortDescription() {
+    public String getShortDescription()
+    {
         return description;
     }
-    public String getLongDescription() {
+
+    public String getLongDescription()
+    {
         return "Du er " + description + ".\n" + getExitString();
     }
 
-    public String getRoomItemList() {
-        return "Du ser " + roomItems.size() + " objekt af interesse:" + getItemString();
-    }
-    private String getItemString(){
-        String returnString = "";
-        Set<String> keys = roomItems.keySet();
-        for(String roomItem : keys) {
-            returnString += "\n" + "- " + roomItem;
-        }
-        return returnString;
-    }
-
-    //public static void moveItems() {}
-
-    private String getExitString() {
-        String returnString = "Udgange:";
+    private String getExitString()
+    {
+        String returnString = "Exits:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;
@@ -55,8 +41,9 @@ public class Room{
         return returnString;
     }
 
-    public Room getExit(String direction) { return exits.get(direction);}
-    public Item getItem(String itemName) { return roomItems.get(itemName);}
-
+    public Room getExit(String direction) 
+    {
+        return exits.get(direction);
+    }
 }
 

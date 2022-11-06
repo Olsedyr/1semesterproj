@@ -41,7 +41,7 @@ public class Game {
 
         //region ------------------Items------------------
         Item.ToggleItem soveværelseLys, radiator, vindue, computer, køkkenLys, tv, vandhane;
-        soveværelseLys = new Item.ToggleItem("Det er lyset i din soveværelse",1,true);
+        soveværelseLys = new Item.ToggleItem("Det er lyset i din soveværelse",1, true);
         radiator = new Item.ToggleItem("Det er radiatoren i din soveværelse",5,true);
         vindue = new Item.ToggleItem("Det er vinduet i din hus",1,true);
         computer = new Item.ToggleItem("Det er dit computer",2,true);
@@ -50,12 +50,18 @@ public class Game {
         vandhane = new Item.ToggleItem("Det er et vandhane i badeværelse",3,true);
 
         Item.ChoiceItem køleskab, oven, bruser, badekar, cykel, bill;
-        køleskab = new Item.ChoiceItem("Det er køleskabet i dit køkken, med ingredienserne indeni kan du lave en økologisk salat med kylling.", 2,false);
-        oven = new Item.ChoiceItem("Det er ovnen i dit køkken, med den kan du lave bagt oksekød.",0,false);
-        bruser = new Item.ChoiceItem("Det er bruseren på dit badeværelse, du kan tage et brusebad her.",3,false);
-        badekar = new Item.ChoiceItem("Det er badekarret på dit badeværelse, du kan tage et bad her.",0,false);
-        cykel = new Item.ChoiceItem("Du kan tage til stranden ved at cykle.",3,false);
-        bill = new Item.ChoiceItem("Du kan tage til stranden ved at køre.",0,false);
+        køleskab = new Item.ChoiceItem("Det er køleskabet i dit køkken, med ingredienserne indeni kan du lave en økologisk salat med kylling.",
+                2,"",false, "oven");
+        oven = new Item.ChoiceItem("Det er ovnen i dit køkken, med den kan du lave bagt oksekød.",
+                0,"",false,"køleskab");
+        bruser = new Item.ChoiceItem("Det er bruseren på dit badeværelse, du kan tage et brusebad her.",
+                3,"",false, "badekar");
+        badekar = new Item.ChoiceItem("Det er badekarret på dit badeværelse, du kan tage et bad her.",
+                0,"",false, "bruser");
+        cykel = new Item.ChoiceItem("Du kan tage til stranden ved at cykle.",
+                3,"",false,"bill");
+        bill = new Item.ChoiceItem("Du kan tage til stranden ved at køre.",
+                0,"",false, "cykel");
 
         Item.TrashItem silkepapir, sodavandsdåser, pizzaæske, mælkekande;
         silkepapir = new Item.TrashItem("Brugt silkepapir.",0,false);

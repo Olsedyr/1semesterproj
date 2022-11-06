@@ -6,20 +6,24 @@ public class Item{
     private int points;
     public boolean toggleState;
     public boolean used;
+    public String otherItem;
+    public String itemEndDescription;
     public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
         this.itemDescription = itemDescirption;
         this.points = points;
+
     }
 
     public String getItemLongDescription(){
-        return itemDescription + toggleStateString() + "."; ///The Choice Item also show toggleStateString, which it shouldn't.
+        return itemDescription + toggleStateString() + ".";
+        ///The Choice Item also show toggleStateString, which it shouldn't.
     }
 
     private String toggleStateString(){
         String returnString = "";
-            if (getItemState()) {
+            if (getItemState() && !getItemUsed() && !getPickedUp()) {
                 returnString = ", den er tændt/åben";
             } else {
                 returnString = ", den er slukket/lukket";
@@ -38,6 +42,9 @@ public class Item{
     public boolean getItemUsed(){
         return used;
     }
+    public boolean getPickedUp(){
+        return pickedUp;
+    }
 
 
     public static class ToggleItem extends Item{
@@ -48,9 +55,11 @@ public class Item{
     }
 
     public static class ChoiceItem extends Item{
-        public ChoiceItem(String itemDescirption, int points, boolean used) {
+        public ChoiceItem(String itemDescirption, int points, String itemEndDescription, boolean used, String otherItem) {
             super(itemDescirption, points);
             this.used = used;
+            this.otherItem = otherItem;
+            this.itemEndDescription = itemEndDescription;
         }
     }
 

@@ -40,6 +40,7 @@ public class CommandLineClient {
         System.out.println("Her i Klimaspillet, påvirker dine valg klimaet, så prøv dit bedste for at hjælpe klimaet!");
         System.out.println("Du kan 'gå' til forskellige steder, 'kigge' på objekter og 'brug' objekter.");
         System.out.println("Skriv '" + Commands.HELP + "' hvis du har brug for hjælp.");
+        System.out.println("Når du ønkser at lukke programmet skal du skrive 'afslut'.");
         System.out.println("Held og lykke! :P");
         System.out.println();
         System.out.println("Du vågner op fra din søvn, det er eftermiddagen.");
@@ -66,7 +67,7 @@ public class CommandLineClient {
 
         if (commandWord == Commands.HELP) {
             System.out.println("Du er inde i en verden hvor du skal træffe de rigtige valg for klimaet");
-            System.out.println("Prøv at undersøge væreden og se om du kan gøre en forskel!");
+            System.out.println("Prøv at undersøge dine omgivelser og se om du kan gøre en forskel!");
             System.out.println();
             System.out.println("Kommandoerne du kan gøre brug af er:");
             printHelp();

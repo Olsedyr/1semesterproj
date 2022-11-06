@@ -20,9 +20,9 @@ public class Item{
     private String toggleStateString(){
         String returnString = "";
             if (getItemState()) {
-                returnString = ", den er tændt/åben";
+                returnString = " Den/det er tændt/åben";
             } else {
-                returnString = ", den er slukket/lukket";
+                returnString = " Den/det er slukket/lukket";
             }
         return returnString;
     }

@@ -5,9 +5,7 @@
  */
 package worldOfZuul.textUI;
 
-import worldOfZuul.Command;
-import worldOfZuul.Commands;
-import worldOfZuul.Game;
+import worldOfZuul.*;
 
 /**
  *
@@ -17,6 +15,7 @@ public class CommandLineClient {
 
     private Parser parser;
     private Game game;
+    private Inventory inventory;
 
     public CommandLineClient() {
         game = new Game();
@@ -38,7 +37,10 @@ public class CommandLineClient {
         System.out.println();
         System.out.println("###### Velkommen til Klimaspillet! ######");
         System.out.println("Her i Klimaspillet, påvirker dine valg klimaet, så prøv dit bedste for at hjælpe klimaet!");
-        System.out.println("Du kan 'gå' til forskellige steder, 'kigge' på objekter og 'brug' objekter.");
+        System.out.println();
+        System.out.println("Du kan skiv '" + Commands.GO + " + [udgange]' at gå til forskellige steder, '"
+                + Commands.LOOK + "' eller '" + Commands.LOOK + " + [objekt]' at kigge rundt eller på noget objekt, \n'"
+                + Commands.USE + " + [objekt]' at at interagere med objeckt og '" + Commands.Inventory + "' at se hvad du har samlede op.");
         System.out.println("Skriv '" + Commands.HELP + "' hvis du har brug for hjælp.");
         System.out.println("Når du ønkser at lukke programmet skal du skrive 'afslut'.");
         System.out.println("Held og lykke! :P");
@@ -50,7 +52,7 @@ public class CommandLineClient {
     private void printHelp() {
         for(String str : game.getCommandDescriptions())
         {
-            System.out.println(str + " ");
+            System.out.println("- " + str);
         }
     }
 
@@ -91,11 +93,18 @@ public class CommandLineClient {
         } else if (commandWord == Commands.USE) {
             if (game.useItem(command)) {
                 game.switchItemState();
+                if(game.currentItem instanceof Item.TrashItem){
+                    System.out.println("Du samlede op...");
+                }
                 System.out.println(game.getItemDescription());
+
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
             }
-
+        } else if (commandWord == Commands.Inventory) {
+            if(game.inventory(command)){
+                System.out.println(game.getInventoryDescription());
+            }
         } else if (commandWord == Commands.QUIT) {
             if (game.quit(command)) {
                 wantToQuit = true;

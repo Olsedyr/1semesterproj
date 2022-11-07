@@ -38,10 +38,10 @@ public class CommandLineClient {
         System.out.println("###### Velkommen til Klimaspillet! ######");
         System.out.println("Her i Klimaspillet, påvirker dine valg klimaet, så prøv dit bedste for at hjælpe klimaet!");
         System.out.println();
-        System.out.println("Du kan skriv '" + Commands.GO + " + [udgange]' at gå til forskellige steder, '"
+        System.out.println("Du kan skrive '" + Commands.GO + " + [udgange]' at gå til forskellige steder, '"
                 + Commands.LOOK + "' eller '" + Commands.LOOK + " + [objekt]' at kigge rundt eller på noget objekt, \n'"
                 + Commands.USE + " + [objekt]' at at interagere med objekt og '" + Commands.Inventory + "' at se hvad du har samlede op.");
-        System.out.println("Skriv '" + Commands.HELP + "' hvis du har brug for hjælp.");
+        System.out.println("Skrive '" + Commands.HELP + "' hvis du har brug for hjælp.");
         System.out.println("Når du ønkser at lukke programmet skal du skrive 'afslut'.");
         System.out.println("Held og lykke! :P");
         System.out.println();

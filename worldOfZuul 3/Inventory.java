@@ -1,35 +1,30 @@
 package worldOfZuul;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class Inventory {
-    ///Inventory that stores the trash player picked up in the game, need remove HashMap Item method in the Room class
-    private ArrayList<Item> items;
-    Inventory (ArrayList<Item> items) {
-        this.items = items;
+    ///Inventory that stores the trash player picked up in the game
+    private HashMap<String, Item> trash;
+
+    public Inventory() {
+        trash = new HashMap<String, Item>();
     }
-    Inventory () {
-        this(new ArrayList<Item>());
+
+    public void addTrash(String string, Item item) {
+        trash.put(string, item);
     }
-    public void addItem (Item item) {
-        if (!items.contains(item)) {
-            items.add(item);
+
+    public void removeTrash (Item item) {
+        trash.remove(item);
+    }
+
+    public String getInventoryString() {
+        String returnString = "Din affaldspose:";
+        Set<String> keys = trash.keySet();
+        for (String trash : keys) {
+            returnString += "\n" + "- " + trash;
         }
-    }
-    public void removeItem (Item item) {
-        items.remove(item);
-    }
-    public double getInventory () {
-        double total = 0.0;
-        for (Item item: items) {
-            total += item.getItemPoints();
-        }
-        return total;
-    }
-    public void printInventory () {
-        System.out.println("Trash Bag:");
-        for (Item item: items) {
-            System.out.println(" - "+item);
-        }
+        return returnString;
     }
 }

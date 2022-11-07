@@ -6,7 +6,6 @@ public class Item{
     private int points;
     public boolean toggleState;
     public boolean used;
-    public String otherItem;
     public String itemEndDescription;
     public boolean pickedUp;
 
@@ -17,22 +16,27 @@ public class Item{
     }
 
     public String getItemLongDescription(){
-        return itemDescription + toggleStateString() + ".";
-        ///The Choice Item also show toggleStateString, which it shouldn't.
+        String returnString = getItemDescription();
+        if(this instanceof ToggleItem){
+            returnString += toggleStateString();
+        }
+        returnString += ".";
+        return returnString;
     }
 
     private String toggleStateString(){
         String returnString = "";
-            if (getItemState() && !getItemUsed() && !getPickedUp()) {
-                returnString = ", den er tændt/åben";
+            if (getItemState()) {
+                returnString = "Den/det er tændt/åben";
             } else {
-                returnString = ", den er slukket/lukket";
+                returnString = "Den/det er slukket/lukket";
             }
         return returnString;
     }
 
-    ///Need method that remove Choice Item when boolean used is true
-
+    public String getItemDescription(){
+        return itemDescription;
+    }
     public int getItemPoints(){
         return points;
     }
@@ -55,11 +59,10 @@ public class Item{
     }
 
     public static class ChoiceItem extends Item{
-        public ChoiceItem(String itemDescirption, int points, String itemEndDescription, boolean used, String otherItem) {
+        public ChoiceItem(String itemDescirption, int points, String itemEndDescription, boolean used) {
             super(itemDescirption, points);
-            this.used = used;
-            this.otherItem = otherItem;
             this.itemEndDescription = itemEndDescription;
+            this.used = used;
         }
     }
 

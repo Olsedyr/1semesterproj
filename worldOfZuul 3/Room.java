@@ -16,15 +16,13 @@ public class Room{
         roomItems = new HashMap<String, Item>();
     }
 
-
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
-    public void setRoomItems(String itemName, Item Item){
-        roomItems.put(itemName,Item);
+    public void setRoomItems(String itemName, Item item){
+        roomItems.put(itemName,item);
     }
-
 
 
     public String getShortDescription() {
@@ -46,7 +44,11 @@ public class Room{
         return returnString;
     }
 
-    //public static void moveItems() {}
+    public void removeItem(Item item)
+    {
+        roomItems.remove(item);
+        ///don't know why doesn't work
+    }
 
     private String getExitString() {
         String returnString = "Udgange:";

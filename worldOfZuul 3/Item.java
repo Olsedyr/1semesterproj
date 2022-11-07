@@ -1,5 +1,8 @@
 package worldOfZuul;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Item{
 
     private String itemDescription;
@@ -7,6 +10,7 @@ public class Item{
     public boolean toggleState;
     public boolean used;
     public boolean pickedUp;
+
 
     public Item(String itemDescirption,int points){
         this.itemDescription = itemDescirption;
@@ -17,24 +21,27 @@ public class Item{
         return itemDescription + toggleStateString() + "."; ///The Choice Item also show toggleStateString, which it shouldn't.
     }
 
+
     private String toggleStateString(){
         String returnString = "";
             if (getItemState()) {
                 returnString = ", den er tændt/åben";
             } else {
                 returnString = ", den er slukket/lukket";
-            }
+
+        }
+
         return returnString;
     }
 
-    ///Need method that remove Choice Item when boolean used is true
+
 
     public int getItemPoints(){
         return points;
     }
-    public boolean getItemState(){
-        return toggleState;
-    }
+
+
+    public boolean getItemState(){return toggleState;}
     public boolean getItemUsed(){
         return used;
     }
@@ -60,4 +67,5 @@ public class Item{
             this.pickedUp = pickedUp;
         }
     }
+
 }

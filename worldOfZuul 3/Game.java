@@ -1,5 +1,6 @@
 package worldOfZuul;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -7,6 +8,10 @@ public class Game {
     private Room currentRoom;
     private Item currentItem;
     private CommandWords commands;
+
+    public List<Integer> score_list = new ArrayList<Integer>();
+
+
 
     public Game() {
         createRooms();
@@ -123,6 +128,8 @@ public class Game {
         } else {
             currentItem = useingItem;
             return true;
+
+
         }
     }
 
@@ -141,7 +148,22 @@ public class Game {
         //}if(currentItem.used()==true) {Inventory.moveItems();}
     }
 
+
+   //adding all the numbers in score_list and printing them.
+    public int sum_score(){
+        int sum=0;
+        for (int i = 0; i<score_list.size(); i++)
+            sum += Integer.valueOf(score_list.get(i));
+            System.out.println("Din score er " + sum);
+            return sum;
+    }
+
+
     public void switchItemState() {
+        if (currentItem.getItemState()==true){
+            score_list.add(currentItem.getItemPoints());
+            sum_score();
+        }
         currentItem.toggleState^=true;
     }
 

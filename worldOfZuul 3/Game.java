@@ -1,5 +1,6 @@
 package worldOfZuul;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -8,6 +9,10 @@ public class Game {
     public Item currentItem;
     private final Inventory inventory;
     private final CommandWords commands;
+
+    public List<Integer> score_list = new ArrayList<Integer>();
+
+
 
     public Game() {
         createRooms();
@@ -151,8 +156,24 @@ public class Game {
             return true;
         }
     }
+
+    public int plus_sum_score(){
+        int sum=0;
+        for (int i = 0; i<score_list.size(); i++)
+            sum += Integer.valueOf(score_list.get(i));
+        System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+        System.out.println("Din score er nu: " + sum);
+        return sum;
+    }
+
+
     public void switchItemState() {
         if (currentItem instanceof Item.ToggleItem) {
+            //If you do the "right thing" u get points
+            if (currentItem.getItemState()==true){
+                score_list.add(currentItem.getItemPoints());
+                plus_sum_score();
+            }
             currentItem.toggleState ^= true;
         } else if(currentItem instanceof Item.ChoiceItem) {
             currentItem.used = true;

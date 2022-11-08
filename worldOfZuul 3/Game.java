@@ -16,7 +16,7 @@ public class Game {
     }
 
     private void createRooms() {
-        //region ------------------Rooms------------------
+        //region ------------------------------------Rooms------------------------------------
         Room soveværelse, køkken, badeværelse, byen, strand;
         soveværelse = new Room("i dit soveværelse i dit hjem");
         køkken = new Room("i køkkenet. Der var gæster på besøg i går og det kan ses");
@@ -24,7 +24,7 @@ public class Game {
         byen = new Room("i byen, travl som altid. Du kan vælge enten at tage en bil eller en cykel hjem");
         strand = new Room("på stranden. Sandet er blødt under din fødder");
 
-        ///Set Exitshuidou
+        ///Set Exit
         soveværelse.setExit("køkken", køkken);
 
         køkken.setExit("soveværelse", soveværelse);
@@ -39,9 +39,10 @@ public class Game {
         strand.setExit("byen", byen);
 
         currentRoom = soveværelse;
-        //endregion
+        //endregion ------------------------------------------------------------------------
 
-        //region ------------------Items------------------
+        //region ------------------------------------Items------------------------------------
+        ///Toggle Items
         Item.ToggleItem loftlampe, radiator, vindue, computer, køkkenlampe, tv, vandhane;
         loftlampe = new Item.ToggleItem("Du kigger på loftlampen i dit soveværelse. Du overvejer hvorvidt det er nødvendigt at det er tændt. " +
                 "\nGardinet er trukket fra så solen skinner ind i rummet og hjælper med at lyse det op.",1,true);
@@ -55,6 +56,7 @@ public class Game {
                 "\nmen ellers bruger du det ikke så meget.",3,true);
         vandhane = new Item.ToggleItem("Der er et vandhane på badeværelset.",3,true);
 
+        ///Choice Items
         Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
                 "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger", 3,
@@ -68,6 +70,7 @@ public class Game {
         transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre. \n - cykle \n - bil",3,
                 "cykle","bil", "","",false);
 
+        ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;
         silkepapir = new Item.TrashItem("Brugt silkepapir.",1,false);
         sodavandsdåser = new Item.TrashItem("Tomme sodavandsdåser som du drak i går med dine venner.",1,false);
@@ -93,7 +96,7 @@ public class Game {
         badeværelse.setRoomItems("bad", bad);
 
         byen.setRoomItems("transport", transport);
-        //endregion
+        //endregion ------------------------------------------------------------------------
     }
 
     public boolean goRoom(Command command) {

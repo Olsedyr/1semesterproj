@@ -6,7 +6,10 @@ public class Item{
     private int points;
     public boolean toggleState;
     public boolean used;
-    public String itemEndDescription;
+    public String choice1;
+    public String choice2;
+    public String choice1Text; //Text shown when choosing one of the options
+    public String choice2Text;
     public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
@@ -20,16 +23,15 @@ public class Item{
         if(this instanceof ToggleItem){
             returnString += toggleStateString();
         }
-        returnString += ".";
         return returnString;
     }
 
     private String toggleStateString(){
         String returnString = "";
             if (getItemState()) {
-                returnString = "Den/det er tændt/åben";
+                returnString = " Den/det er tændt/åben.";
             } else {
-                returnString = "Den/det er slukket/lukket";
+                returnString = " Den/det er slukket/lukket.";
             }
         return returnString;
     }
@@ -59,10 +61,15 @@ public class Item{
     }
 
     public static class ChoiceItem extends Item{
-        public ChoiceItem(String itemDescirption, int points, String itemEndDescription, boolean used) {
+
+        public ChoiceItem(String itemDescirption, int points, String choice1, String choice2, String choice1Text, String choice2Text, boolean used) {
             super(itemDescirption, points);
-            this.itemEndDescription = itemEndDescription;
+            this.choice1= choice1;
+            this.choice2= choice2;
+            this.choice1Text= choice1Text;
+            this.choice2Text= choice2Text;
             this.used = used;
+
         }
     }
 

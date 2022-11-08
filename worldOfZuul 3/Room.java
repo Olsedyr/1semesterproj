@@ -47,6 +47,7 @@ public class Room{
     public void removeItem(Item item)
     {
         roomItems.remove(item);
+
         ///don't know why doesn't work
     }
 

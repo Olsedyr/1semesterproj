@@ -17,11 +17,11 @@ public class Game {
 
     private void createRooms() {
         //region ------------------Rooms------------------
-        Room soveværelse, køkken, badeværelse, by, strand;
+        Room soveværelse, køkken, badeværelse, byen, strand;
         soveværelse = new Room("i dit soveværelse i dit hjem");
         køkken = new Room("i køkkenet. Der var gæster på besøg i går og det kan ses");
         badeværelse = new Room("på badeværelset. Du mærker de kolde klinker under dine fødder");
-        by = new Room("i byen, travl som altid. Du kan vælge enten at tage en bil eller en cykel hjem");
+        byen = new Room("i byen, travl som altid. Du kan vælge enten at tage en bil eller en cykel hjem");
         strand = new Room("på stranden. Sandet er blødt under din fødder");
 
         ///Set Exitshuidou
@@ -29,14 +29,14 @@ public class Game {
 
         køkken.setExit("soveværelse", soveværelse);
         køkken.setExit("badeværelse", badeværelse);
-        køkken.setExit("byen", by);
+        køkken.setExit("byen", byen);
 
         badeværelse.setExit("køkken", køkken);
 
-        by.setExit("køkken", køkken);
-        by.setExit("stranden", strand);
+        byen.setExit("køkken", køkken);
+        byen.setExit("stranden", strand);
 
-        strand.setExit("byen", by);
+        strand.setExit("byen", byen);
 
         currentRoom = soveværelse;
         //endregion
@@ -55,21 +55,24 @@ public class Game {
                 "\nmen ellers bruger du det ikke så meget.",3,true);
         vandhane = new Item.ToggleItem("Der er et vandhane på badeværelset.",3,true);
 
-        Item.ChoiceItem køleskab, komfur, bruser, badekar, cykel, bil;
+        Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
-                "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger", 2,"", false);
+                "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger", 3,
+                "salat","burger", "","",false);
         komfur = new Item.ChoiceItem("I dit køkken er der også et komfur. Du kan vælge enten at varme kødet i ovenen, " +
-                "eller stege det på en stegepande. \n - ovenen \n - stegepande",0,"\n - ovenen \n - stegepande", false);
-        bruser = new Item.ChoiceItem("Der er en bruser på dit badeværelse. du kan tage et brusebad her.",3,"", false);
-        badekar = new Item.ChoiceItem("Der er et badekar på dit badeværelse. du kan tage et karbadbad her.",0,"", false);
-        cykel = new Item.ChoiceItem("Du kan tage til stranden ved at cykle.",3,"", false);
-        bil = new Item.ChoiceItem("Du kan tage til stranden ved at køre.",0,"", false);
+                "eller stege det på en stegepande. \n - ovenen \n - stegepande",3,
+                "ovenen","stegepande", "","",false);
+        bad = new Item.ChoiceItem("Der er en bruser og et badekar på dit badeværelse." +
+                " Du kan tage et brusebad eller karbad bad her.\n - bruser \n - badekar",3,
+                "bruser","badekar","","", false);
+        transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre. \n - cykle \n - bil",3,
+                "cykle","bil", "","",false);
 
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;
-        silkepapir = new Item.TrashItem("Brugt silkepapir.",0,false);
-        sodavandsdåser = new Item.TrashItem("Tomme sodavandsdåser som du drak i går med dine venner.",0,false);
-        pizzabakke = new Item.TrashItem("Tom pizzabakke, olien fra pizzaen pletter pizzaboksen.",0,false);
-        mælkekarton = new Item.TrashItem("Tom mælkekarton，du har allerede foldet det sammen.",0,false);
+        silkepapir = new Item.TrashItem("Brugt silkepapir.",1,false);
+        sodavandsdåser = new Item.TrashItem("Tomme sodavandsdåser som du drak i går med dine venner.",1,false);
+        pizzabakke = new Item.TrashItem("Tom pizzabakke, olien fra pizzaen pletter pizzaboksen.",1,false);
+        mælkekarton = new Item.TrashItem("Tom mælkekarton，du har allerede foldet det sammen.",1,false);
 
         ///Set Room item
         soveværelse.setRoomItems("loftlampe", loftlampe);
@@ -87,11 +90,9 @@ public class Game {
         køkken.setRoomItems("mælkekarton", mælkekarton);
 
         badeværelse.setRoomItems("vandhane", vandhane);
-        badeværelse.setRoomItems("bruser", bruser);
-        badeværelse.setRoomItems("badekar", badekar);
+        badeværelse.setRoomItems("bad", bad);
 
-        by.setRoomItems("cykel", cykel);
-        by.setRoomItems("bil", bil);
+        byen.setRoomItems("transport", transport);
         //endregion
     }
 
@@ -157,7 +158,6 @@ public class Game {
             currentItem.pickedUp = true;
             addItem();
             removeItem();
-
         }
     }
     private void removeItem() {

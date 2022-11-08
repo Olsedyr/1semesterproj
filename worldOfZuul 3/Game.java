@@ -13,6 +13,7 @@ public class Game {
 
 
 
+
     public Game() {
         createRooms();
         commands = new CommandWordsImplementation();
@@ -150,19 +151,22 @@ public class Game {
 
 
    //adding all the numbers in score_list and printing them.
-    public int sum_score(){
+    public int plus_sum_score(){
         int sum=0;
         for (int i = 0; i<score_list.size(); i++)
             sum += Integer.valueOf(score_list.get(i));
-            System.out.println("Din score er " + sum);
+            System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+            System.out.println("Din score er nu: " + sum);
             return sum;
     }
 
 
     public void switchItemState() {
+
+        //If you do the "right thing" u get points
         if (currentItem.getItemState()==true){
             score_list.add(currentItem.getItemPoints());
-            sum_score();
+            plus_sum_score();
         }
         currentItem.toggleState^=true;
     }

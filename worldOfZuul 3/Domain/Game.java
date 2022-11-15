@@ -1,6 +1,6 @@
 package worldOfZuul.Domain;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,8 @@ public class Game {
 
     public List<Integer> score_list = new ArrayList<Integer>();
 
-    public File scoreFile = new File();
+
+    public File scoreFile = new File("score.txt");
 
 
     public Game() {
@@ -188,6 +189,9 @@ public class Game {
         }
     }
 
+
+
+
     public int plus_sum_score(){
         int sum=0;
         for (int i = 0; i<score_list.size(); i++)
@@ -200,8 +204,20 @@ public class Game {
             }
         }
         System.out.println("Din score er nu: " + sum);
+
+        //Skriver til score.txt filen
+        PrintWriter pw;
+        try{
+        pw = new PrintWriter(scoreFile);
+        pw.println(sum);
+        pw.close();
+
+        } catch (FileNotFoundException ex){
+            System.out.println("Der var en fejl i scoresystemet. ");
+        }
         return sum;
     }
+
 
 
     public void switchItemState() {

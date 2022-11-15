@@ -7,6 +7,9 @@ package worldOfZuul.textUI;
 
 import worldOfZuul.Domain.*;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  *
  * @author ancla
@@ -21,6 +24,9 @@ public class CommandLineClient {
         game = new Game();
         parser = new Parser(game);
     }
+
+
+
 
     public void play() {
         printWelcome();
@@ -44,6 +50,18 @@ public class CommandLineClient {
                 + Commands.USE + " + [objekt]' at at interagere med et objekt og '" + Commands.Inventory + "' for at se hvad du har samlet op.");
         System.out.println("Skrive '" + Commands.HELP + "' hvis du har brug for hjælp.");
         System.out.println("Når du ønkser at lukke programmet skal du skrive 'afslut'.");
+
+
+        //Læser score.txt filen
+        try {
+            Scanner reader = new Scanner(game.scoreFile);
+            System.out.println("Din sidste score var: "+reader.nextLine());
+        } catch (FileNotFoundException e) {
+            System.out.println("Kan ikke finde scorefil");
+            throw new RuntimeException(e);
+        }
+
+
         System.out.println("Held og lykke! :P");
         System.out.println();
         System.out.println("Du vågner op fra din middagslur, det er eftermiddag.");

@@ -1,5 +1,6 @@
 package worldOfZuul;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Game {
 
     public List<Integer> score_list = new ArrayList<Integer>();
 
+    public File scoreFile = new File();
 
 
     public Game() {

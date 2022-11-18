@@ -50,7 +50,7 @@ public class Game {
         //endregion ------------------------------------------------------------------------
 
         //region ------------------------------------Items------------------------------------
-        ///Toggle Items
+        ///Toggle Items: ToggleState==True means that the current state of the object is not climate friendly
         Item.ToggleItem loftlampe, radiator, vindue, computer, køkkenlampe, tv, vandhane;
         loftlampe = new Item.ToggleItem("Du kigger på loftlampen i dit soveværelse. Du overvejer hvorvidt det er nødvendigt at det er tændt. " +
                 "\nGardinet er trukket fra så solen skinner ind i rummet og hjælper med at lyse det op.",1,true);
@@ -167,7 +167,13 @@ public class Game {
         int sum=0;
         for (int i = 0; i<score_list.size(); i++)
             sum += Integer.valueOf(score_list.get(i));
-        System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+        if (currentItem instanceof Item.ToggleItem) {
+            if (currentItem.getItemState() == true) {
+                System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+            } else {
+                System.out.println("Du mistede " + currentItem.getItemPoints() + " point");
+            }
+        }
         System.out.println("Din score er nu: " + sum);
 
         //Skriver til score.txt filen
@@ -187,11 +193,13 @@ public class Game {
 
     public void switchItemState() {
         if (currentItem instanceof Item.ToggleItem) {
-            //If you do the "right thing" u get points
-            if (currentItem.getItemState()==true){
+            //If you do the "right thing" you get points
+            if (currentItem.getItemState()==true) {              //If item use is climate friendly, add points and change toggleState
                 score_list.add(currentItem.getItemPoints());
-                plus_sum_score();
+            } else {                                             //If item use is not climate friendly, subtract points and change toggleState
+                score_list.remove(Integer.valueOf(currentItem.getItemPoints()));
             }
+            plus_sum_score();
             currentItem.toggleState ^= true;
         } else if(currentItem instanceof Item.ChoiceItem) {
             currentItem.used = true;

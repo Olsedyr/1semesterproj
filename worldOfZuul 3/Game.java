@@ -64,6 +64,7 @@ public class Game {
                 "\nmen ellers bruger du det ikke så meget.",3,true);
         vandhane = new Item.ToggleItem("Der er et vandhane på badeværelset.",3,true);
 
+
         ///Choice Items
         Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
@@ -201,6 +202,7 @@ public class Game {
             }
             plus_sum_score();
             currentItem.toggleState ^= true;
+            //refer to method changing itemDescription based on toggleState
         } else if(currentItem instanceof Item.ChoiceItem) {
             currentItem.used = true;
             removeItem();
@@ -209,6 +211,24 @@ public class Game {
             addItem();
             removeItem();
         }
+
+        //method changing itemDescriptiton based on toggleState
+            //if currentItem.toggleState = true
+                //if loftlampe, itemDescription = ""
+                //if radiator, itemDescription = ""
+                //if vindue, itemDescription = ""
+                //if computer, itemDescription = ""
+                //if køkkenlampe, itemDescription = ""
+                //if tv, itemDescription = ""
+                //if vandhane, itemDescription = ""
+            //else if currentItem.toggleState = false
+                //if loftlampe, itemDescription = ""
+                //if radiator, itemDescription = ""
+                //if vindue, itemDescription = ""
+                //if computer, itemDescription = ""
+                //if køkkenlampe, itemDescription = ""
+                //if tv, itemDescription = ""
+                //if vandhane, itemDescription = ""
     }
     private void removeItem() {
         currentRoom.removeItem(currentItem);

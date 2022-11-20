@@ -9,9 +9,11 @@ public class Item{
     public String choice1;
     public String choice2;
     public String choice3;
+    public String choice4;
     public String choice1Text; //Text shown when choosing one of the options
     public String choice2Text;
     public String choice3Text;
+    public String choice4Text;
     public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
@@ -41,6 +43,18 @@ public class Item{
     public String getItemDescription(){
         return itemDescription;
     }
+    public String getChoice1(){
+        return choice1Text;
+    }
+    public String getChoice2(){
+        return choice2Text;
+    }
+    public String getChoice3(){
+        return choice3Text;
+    }
+    public String getChoice4(){
+        return choice4Text;
+    }
     public int getItemPoints(){
         return points;
     }
@@ -64,15 +78,28 @@ public class Item{
 
     public static class ChoiceItem extends Item{
 
-        public ChoiceItem(String itemDescirption, int points, String choice1, String choice2, String choice3, String choice1Text, String choice2Text, String choice3Text, boolean used) {
+        public ChoiceItem(String itemDescirption, int points, String choice1, String choice2, String choice1Text, String choice2Text, boolean used) {
+            super(itemDescirption, points);
+            this.choice1= choice1;
+            this.choice2= choice2;
+            this.choice1Text= choice1Text;
+            this.choice2Text= choice2Text;
+            this.used = used;
+        }
+    }
+
+    public static class MultipleChoice extends Item{
+
+        public MultipleChoice (String itemDescirption, int points, String choice1, String choice2, String choice3, String choice4, String choice1Text, String choice2Text, String choice3Text, String choice4Text) {
             super(itemDescirption, points);
             this.choice1= choice1;
             this.choice2= choice2;
             this.choice3= choice3;
+            this.choice4= choice4;
             this.choice1Text= choice1Text;
             this.choice2Text= choice2Text;
             this.choice3Text= choice3Text;
-            this.used = used;
+            this.choice4Text= choice4Text;
         }
     }
 

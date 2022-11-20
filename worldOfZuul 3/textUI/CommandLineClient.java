@@ -92,11 +92,20 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.USE) {
             if (game.useItem(command)) {
-                game.switchItemState();
                 if(game.currentItem instanceof Item.TrashItem){
+                    game.switchItemState();
                     System.out.println("Du samlede op...");
+                    System.out.println(game.getItemDescription());
                 }
-                System.out.println(game.getItemDescription());
+                if(game.currentItem instanceof Item.MultipleChoice){
+                    switch(Item.MultipleChoice) {
+                        case 'choice1' : System.out.println(game.currentItem.getChoice1());
+                        case 'choice2' : System.out.println(game.currentItem.getChoice2());
+                        case 'choice3' : System.out.println(game.currentItem.getChoice3());
+                        case 'choice4' : System.out.println(game.currentItem.getChoice4());
+                    }
+
+                }
 
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
@@ -116,3 +125,5 @@ public class CommandLineClient {
         return wantToQuit;
     }
 }
+
+

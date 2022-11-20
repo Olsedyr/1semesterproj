@@ -65,15 +65,20 @@ public class Game {
         Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
                 "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger \n - derp", 3,
-                "salat","burger", "derp","du valgte salat","", "du valgte derp", false);
+                "salat","burger", "","",false);
         komfur = new Item.ChoiceItem("I dit køkken er der også et komfur. Du kan vælge enten at varme kødet i ovenen, " +
                 "eller stege det på en stegepande. \n - ovenen \n - stegepande",3,
-                "ovenen","stegepande", "","","", "", false);
+                "ovenen","stegepande", "","",false);
         bad = new Item.ChoiceItem("Der er en bruser og et badekar på dit badeværelse." +
                 " Du kan tage et brusebad eller karbad bad her.\n - bruser \n - badekar",3,
-                "bruser","badekar","","", "", "", false);
+                "bruser","badekar","","",false);
         transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre. \n - cykle \n - bil",3,
-                "cykle","bil", "","","", "", false);
+                "cykle","bil", "","",false);
+
+        Item.MultipleChoice grete;
+        grete = new Item.MultipleChoice("Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen? \n1. Du kan samle skrald op nede på stranden +" +
+                " \n2. hhh \n3. aaa \n4. ttt", 3,
+                "1","2","3","4","Mange tak for hjælpen!","","","");
 
         ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;
@@ -101,6 +106,7 @@ public class Game {
         badeværelse.setRoomItems("bad", bad);
 
         byen.setRoomItems("transport", transport);
+        byen.setRoomItems("Grete", grete);
         //endregion ------------------------------------------------------------------------
     }
 

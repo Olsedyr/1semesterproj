@@ -2,7 +2,7 @@ package worldOfZuul;
 
 public class Item{
 
-    private String itemDescription;
+    protected String itemDescription;
     private int points;
     public boolean toggleState;
     public boolean used;
@@ -29,15 +29,18 @@ public class Item{
     private String toggleStateString(){
         String returnString = "";
             if (getItemState()) {
-                returnString = " Den/det er tændt/åben.";
+                returnString = " ";         // Before: Den/det er tændt/åben.
             } else {
-                returnString = " Den/det er slukket/lukket.";
+                returnString = " ";         // Before: Den/det er slukket/lukket.
             }
         return returnString;
     }
 
     public String getItemDescription(){
-        return itemDescription;
+        if(this instanceof ToggleItem) {
+            return ((ToggleItem) this).changeItemDescription();
+        }
+            return itemDescription;
     }
     public int getItemPoints(){
         return points;
@@ -54,9 +57,23 @@ public class Item{
 
 
     public static class ToggleItem extends Item{
-        public ToggleItem(String itemDescirption, int points, boolean toggleState) {
-            super(itemDescirption, points);
+        private String itemDescriptionTrue;
+        private String itemDescriptionFalse;
+        public ToggleItem(String itemDescription, String itemDescriptionTrue, String itemDescriptionFalse, int points, boolean toggleState) {
+            super(itemDescription, points);
+            this.itemDescriptionTrue = itemDescriptionTrue;
+            this.itemDescriptionFalse = itemDescriptionFalse;
             this.toggleState = toggleState;
+        }
+
+        public String changeItemDescription() {             //Changes item description based on toggle state
+            if (this.getItemState()) {
+                this.itemDescription = itemDescriptionTrue;
+                return itemDescription;
+            } else {
+                this.itemDescription = itemDescriptionFalse;
+                return itemDescription;
+            }
         }
     }
 

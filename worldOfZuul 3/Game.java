@@ -64,16 +64,16 @@ public class Game {
         ///Choice Items
         Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
-                "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger", 3,
-                "salat","burger", "","",false);
+                "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger \n - derp", 3,
+                "salat","burger", "derp","du valgte salat","", "du valgte derp", false);
         komfur = new Item.ChoiceItem("I dit køkken er der også et komfur. Du kan vælge enten at varme kødet i ovenen, " +
                 "eller stege det på en stegepande. \n - ovenen \n - stegepande",3,
-                "ovenen","stegepande", "","",false);
+                "ovenen","stegepande", "","","", "", false);
         bad = new Item.ChoiceItem("Der er en bruser og et badekar på dit badeværelse." +
                 " Du kan tage et brusebad eller karbad bad her.\n - bruser \n - badekar",3,
-                "bruser","badekar","","", false);
+                "bruser","badekar","","", "", "", false);
         transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre. \n - cykle \n - bil",3,
-                "cykle","bil", "","",false);
+                "cykle","bil", "","","", "", false);
 
         ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;

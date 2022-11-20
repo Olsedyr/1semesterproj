@@ -8,8 +8,10 @@ public class Item{
     public boolean used;
     public String choice1;
     public String choice2;
+    public String choice3;
     public String choice1Text; //Text shown when choosing one of the options
     public String choice2Text;
+    public String choice3Text;
     public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
@@ -62,14 +64,15 @@ public class Item{
 
     public static class ChoiceItem extends Item{
 
-        public ChoiceItem(String itemDescirption, int points, String choice1, String choice2, String choice1Text, String choice2Text, boolean used) {
+        public ChoiceItem(String itemDescirption, int points, String choice1, String choice2, String choice3, String choice1Text, String choice2Text, String choice3Text, boolean used) {
             super(itemDescirption, points);
             this.choice1= choice1;
             this.choice2= choice2;
+            this.choice3= choice3;
             this.choice1Text= choice1Text;
             this.choice2Text= choice2Text;
+            this.choice3Text= choice3Text;
             this.used = used;
-
         }
     }
 

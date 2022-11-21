@@ -110,6 +110,8 @@ public class CommandLineClient {
                         case 3 : System.out.println(Item.getChoice3());
                         break;
                         case 4 : System.out.println(Item.getChoice4());
+                        break;
+                        default : System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
                     }
                 }
             } else {

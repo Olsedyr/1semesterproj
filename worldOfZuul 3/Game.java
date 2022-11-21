@@ -72,10 +72,10 @@ public class Game {
 
         ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;
-        silkepapir = new Item.TrashItem("Brugt silkepapir.",1,false);
-        sodavandsdåser = new Item.TrashItem("Tomme sodavandsdåser som du drak i går med dine venner.",1,false);
-        pizzabakke = new Item.TrashItem("Tom pizzabakke, olien fra pizzaen pletter pizzaboksen.",1,false);
-        mælkekarton = new Item.TrashItem("Tom mælkekarton，du har allerede foldet det sammen.",1,false);
+        silkepapir = new Item.TrashItem("Brugt silkepapir.",1,"Restaffald",false);
+        sodavandsdåser = new Item.TrashItem("Tomme sodavandsdåser som du drak i går med dine venner.",1,"Metal",false);
+        pizzabakke = new Item.TrashItem("Tom pizzabakke, olien fra pizzaen pletter pizzaboksen.",1,"Restaffald ",false);
+        mælkekarton = new Item.TrashItem("Tom mælkekarton，du har allerede foldet det sammen.",1,"Plastaffaldet",false);
 
         ///Set Room item
         soveværelse.setRoomItems("loftlampe", loftlampe);
@@ -151,22 +151,24 @@ public class Game {
             return true;
         }
     }
-    public void switchItemState() {
+    public void switchItemState(Command command) {
         if (currentItem instanceof Item.ToggleItem) {
             currentItem.toggleState ^= true;
         } else if(currentItem instanceof Item.ChoiceItem) {
             currentItem.used = true;
-            removeItem();
+            removeItem(command);
         } else if (currentItem instanceof Item.TrashItem) {
             currentItem.pickedUp = true;
-            addItem();
-            removeItem();
+            addItemToInventory();
+            removeItem(command);
         }
     }
-    private void removeItem() {
-        currentRoom.removeItem(currentItem);
+    private void removeItem(Command command) {
+        String itemName = command.getCommandValue();
+        currentRoom.removeItem(itemName);
     }
-    private void addItem() {
+
+    private void addItemToInventory() {
         inventory.addTrash(currentItem.getItemDescription(), currentItem);
     }
 
@@ -180,6 +182,7 @@ public class Game {
 
     //region getCommands Implementation
     //---------------------------------------------------------------------------------------
+
     public String getRoomDescription() {
         return currentRoom.getLongDescription();
     }

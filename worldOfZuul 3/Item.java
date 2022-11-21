@@ -10,6 +10,7 @@ public class Item{
     public String choice2;
     public String choice1Text; //Text shown when choosing one of the options
     public String choice2Text;
+    public String trashType;
     public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
@@ -74,9 +75,10 @@ public class Item{
     }
 
     public static class TrashItem extends Item{
-        public TrashItem(String itemDescirption, int points, boolean pickedUp) {
+        public TrashItem(String itemDescirption, int points, String trashType, boolean pickedUp) {
             super(itemDescirption, points);
             this.pickedUp = pickedUp;
+            this.trashType = trashType;
         }
     }
 }

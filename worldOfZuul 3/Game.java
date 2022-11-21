@@ -76,9 +76,9 @@ public class Game {
                 "cykle","bil", "","",false);
 
         Item.MultipleChoice grete;
-        grete = new Item.MultipleChoice("Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen? \n1. Du kan samle skrald op nede på stranden +" +
-                " \n2. hhh \n3. aaa \n4. ttt", 3,
-                "1","2","3","4","Mange tak for hjælpen!","","","");
+        grete = new Item.MultipleChoice("Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen? \n1. Du kan samle skrald op nede på stranden" +
+                " \n2. Du kan prøve at slukke for computeren \n3. Du kan tage cyklen i stedet for bilen \n4. Aner det ikke", 3,
+                "Mange tak for hjælpen!","Nåår computerendet, var en god ide. Tak!","Uha, nej tak, det er der for langt til","Når..");
 
         ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;

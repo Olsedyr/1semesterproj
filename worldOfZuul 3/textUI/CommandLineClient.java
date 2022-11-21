@@ -7,6 +7,8 @@ package worldOfZuul.textUI;
 
 import worldOfZuul.*;
 
+import java.util.Scanner;
+
 /**
  *
  * @author ancla
@@ -16,7 +18,6 @@ public class CommandLineClient {
     private Parser parser;
     private Game game;
     private Inventory inventory;
-
     public CommandLineClient() {
         game = new Game();
         parser = new Parser(game);
@@ -92,21 +93,25 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.USE) {
             if (game.useItem(command)) {
+                game.switchItemState();
                 if(game.currentItem instanceof Item.TrashItem){
-                    game.switchItemState();
                     System.out.println("Du samlede op...");
                     System.out.println(game.getItemDescription());
                 }
-                if(game.currentItem instanceof Item.MultipleChoice){
-                    switch(Item.MultipleChoice) {
-                        case 'choice1' : System.out.println(game.currentItem.getChoice1());
-                        case 'choice2' : System.out.println(game.currentItem.getChoice2());
-                        case 'choice3' : System.out.println(game.currentItem.getChoice3());
-                        case 'choice4' : System.out.println(game.currentItem.getChoice4());
+                if (game.currentItem instanceof Item.MultipleChoice) {
+                    System.out.println(game.getItemDescription());
+                    Scanner valg = new Scanner(System.in);
+                    int choice = valg.nextInt();
+                    switch (choice){
+                        case 1 : System.out.println(Item.getChoice1());
+                        break;
+                        case 2 : System.out.println(Item.getChoice2());
+                        break;
+                        case 3 : System.out.println(Item.getChoice3());
+                        break;
+                        case 4 : System.out.println(Item.getChoice4());
                     }
-
                 }
-
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
             }
@@ -125,5 +130,3 @@ public class CommandLineClient {
         return wantToQuit;
     }
 }
-
-

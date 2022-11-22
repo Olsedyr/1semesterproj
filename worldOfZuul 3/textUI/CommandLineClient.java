@@ -100,6 +100,24 @@ public class CommandLineClient {
                 System.out.println("Kan ikke gå i den retning.");
             }
 
+
+            if (game.currentItem instanceof Item.MultipleChoice) {
+                System.out.println(game.getItemDescription());
+                Scanner valg = new Scanner(System.in);
+                int choice = valg.nextInt();
+                switch (choice){
+                    case 1 : System.out.println(Item.getChoice1());
+                        break;
+                    case 2 : System.out.println(Item.getChoice2());
+                        break;
+                    case 3 : System.out.println(Item.getChoice3());
+                        break;
+                    case 4 : System.out.println(Item.getChoice4());
+                        break;
+                    default : System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
+                }
+            }
+
         } else if (commandWord == Commands.LOOK) {
             if (game.lookRoom(command)) {
                 System.out.println(game.getItemList());

@@ -8,8 +8,10 @@ public class Item{
     public boolean used;
     public String choice1;
     public String choice2;
-    public String choice1Text; //Text shown when choosing one of the options
-    public String choice2Text;
+    public static String choice1Text; //Text shown when choosing one of the options
+    public static String choice2Text;
+    public static String choice3Text;
+    public static String choice4Text;
     public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
@@ -42,6 +44,20 @@ public class Item{
         }
             return itemDescription;
     }
+
+    public static String getChoice1(){
+        return choice1Text;
+    }
+    public static String getChoice2(){
+        return choice2Text;
+    }
+    public static String getChoice3(){
+        return choice3Text;
+    }
+    public static String getChoice4(){
+        return choice4Text;
+    }
+
     public int getItemPoints(){
         return points;
     }
@@ -90,6 +106,15 @@ public class Item{
         }
     }
 
+    public static class MultipleChoice extends Item{
+        public MultipleChoice (String itemDescirption, int points, String choice1Text, String choice2Text, String choice3Text, String choice4Text) {
+            super(itemDescirption, points);
+            this.choice1Text= choice1Text;
+            this.choice2Text= choice2Text;
+            this.choice3Text= choice3Text;
+            this.choice4Text= choice4Text;
+        }
+    }
     public static class TrashItem extends Item{
         public TrashItem(String itemDescirption, int points, boolean pickedUp) {
             super(itemDescirption, points);

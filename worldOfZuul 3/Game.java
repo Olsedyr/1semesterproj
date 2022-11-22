@@ -107,6 +107,11 @@ public class Game {
         transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre. \n - cykle \n - bil",3,
                 "cykle","bil", "","",false);
 
+
+        Item.MultipleChoice grete;
+        grete = new Item.MultipleChoice("Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen? \n1. Du kan samle skrald op nede på stranden" +
+                " \n2. Du kan prøve at slukke for computeren \n3. Du kan tage cyklen i stedet for bilen \n4. Aner det ikke", 3,
+                "Mange tak for hjælpen!","Nåår computeren, det var en god ide. Tak!","Uha, nej tak, det er der for langt til","Når..");
         ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;
         silkepapir = new Item.TrashItem("Brugt silkepapir.",1,false);
@@ -133,6 +138,8 @@ public class Game {
         badeværelse.setRoomItems("bad", bad);
 
         byen.setRoomItems("transport", transport);
+
+        byen.setRoomItems("Grete", grete);
         //endregion ------------------------------------------------------------------------
     }
 

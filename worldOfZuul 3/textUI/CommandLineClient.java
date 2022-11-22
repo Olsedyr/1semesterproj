@@ -5,7 +5,7 @@
  */
 package worldOfZuul.textUI;
 
-import worldOfZuul.*;
+import worldOfZuul.Domain.*;
 
 /**
  *

@@ -1,5 +1,5 @@
 
-package worldOfZuul;
+package worldOfZuul.Domain;
 
 public interface Command {
 

@@ -17,7 +17,7 @@
  * @version 2006.03.30
  */
 
-package worldOfZuul;
+package worldOfZuul.Domain;
 
 public class CommandImplementation implements Command
 {

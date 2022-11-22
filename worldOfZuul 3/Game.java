@@ -64,22 +64,24 @@ public class Game {
         ///Choice Items
         Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
-                "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger \n - derp", 3,
-                "salat","burger", "","",false);
+                "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger", 3,
+                "salat","burger");
         komfur = new Item.ChoiceItem("I dit køkken er der også et komfur. Du kan vælge enten at varme kødet i ovenen, " +
                 "eller stege det på en stegepande. \n - ovenen \n - stegepande",3,
-                "ovenen","stegepande", "","",false);
+                "ovenen","stegepande");
         bad = new Item.ChoiceItem("Der er en bruser og et badekar på dit badeværelse." +
                 " Du kan tage et brusebad eller karbad bad her.\n - bruser \n - badekar",3,
-                "bruser","badekar","","",false);
+                "bruser","badekar");
         transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre. \n - cykle \n - bil",3,
-                "cykle","bil", "","",false);
+                "cykle","bil");
 
-        Item.MultipleChoice grete;
+        Item.MultipleChoice grete, berte;
         grete = new Item.MultipleChoice("Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen? \n1. Du kan samle skrald op nede på stranden" +
                 " \n2. Du kan prøve at slukke for computeren \n3. Du kan tage cyklen i stedet for bilen \n4. Aner det ikke", 3,
                 "Mange tak for hjælpen!","Nåår computeren, det var en god ide. Tak!","Uha, nej tak, det er der for langt til","Når..");
-
+        berte = new Item.MultipleChoice("Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen? \n1. Du kan samle skrald op nede på stranden" +
+                " \n2. Du kan prøve at slukke for computeren \n3. Du kan tage cyklen i stedet for bilen \n4. Aner det ikke", 3,
+                "Man hjælpen!","Nåår cet var en god ide. Tak!","Uha,der for langt til","N.");
         ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;
         silkepapir = new Item.TrashItem("Brugt silkepapir.",1,false);
@@ -107,6 +109,7 @@ public class Game {
 
         byen.setRoomItems("transport", transport);
         byen.setRoomItems("Grete", grete);
+        byen.setRoomItems("Berte", berte);
         //endregion ------------------------------------------------------------------------
     }
 

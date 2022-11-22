@@ -103,14 +103,26 @@ public class CommandLineClient {
                     Scanner valg = new Scanner(System.in);
                     int choice = valg.nextInt();
                     switch (choice){
-                        case 1 : System.out.println(Item.getChoice1());
+                        case 1 : System.out.println(Item.getChoice1m());
                         break;
-                        case 2 : System.out.println(Item.getChoice2());
+                        case 2 : System.out.println(Item.getChoice2m());
                         break;
-                        case 3 : System.out.println(Item.getChoice3());
+                        case 3 : System.out.println(Item.getChoice3m());
                         break;
-                        case 4 : System.out.println(Item.getChoice4());
+                        case 4 : System.out.println(Item.getChoice4m());
                         break;
+                        default : System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
+                    }
+                }
+                else if (game.currentItem instanceof Item.ChoiceItem) {
+                    System.out.println(game.getItemDescription());
+                    Scanner valg = new Scanner(System.in);
+                    int choice = valg.nextInt();
+                    switch (choice){
+                        case 1 : System.out.println(Item.ChoiceItem.getChoice1());
+                            break;
+                        case 2 : System.out.println(Item.ChoiceItem.getChoice2());
+                            break;
                         default : System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
                     }
                 }

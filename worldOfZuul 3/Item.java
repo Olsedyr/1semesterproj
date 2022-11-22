@@ -9,8 +9,10 @@ public class Item{
     public String choice2;
     public static String choice1Text; //Text shown when choosing one of the options
     public static String choice2Text;
-    public static String choice3Text;
-    public static String choice4Text;
+    public static String mchoice1Text; //Text shown when choosing one of the options
+    public static String mchoice2Text;
+    public static String mchoice3Text;
+    public static String mchoice4Text;
     public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
@@ -45,11 +47,17 @@ public class Item{
     public static String getChoice2(){
         return choice2Text;
     }
-    public static String getChoice3(){
-        return choice3Text;
+    public static String getChoice1m(){
+        return mchoice1Text;
     }
-    public static String getChoice4(){
-        return choice4Text;
+    public static String getChoice2m(){
+        return mchoice2Text;
+    }
+    public static String getChoice3m(){
+        return mchoice3Text;
+    }
+    public static String getChoice4m(){
+        return mchoice4Text;
     }
     public int getItemPoints(){
         return points;
@@ -72,23 +80,20 @@ public class Item{
     }
 
     public static class ChoiceItem extends Item{
-        public ChoiceItem(String itemDescirption, int points, String choice1, String choice2, String choice1Text, String choice2Text, boolean used) {
+        public ChoiceItem(String itemDescirption, int points, String choice1Text, String choice2Text) {
             super(itemDescirption, points);
-            this.choice1= choice1;
-            this.choice2= choice2;
             this.choice1Text= choice1Text;
             this.choice2Text= choice2Text;
-            this.used = used;
         }
     }
 
     public static class MultipleChoice extends Item{
-        public MultipleChoice (String itemDescirption, int points, String choice1Text, String choice2Text, String choice3Text, String choice4Text) {
+        public MultipleChoice (String itemDescirption, int points, String mchoice1Text, String mchoice2Text, String mchoice3Text, String mchoice4Text) {
             super(itemDescirption, points);
-            this.choice1Text= choice1Text;
-            this.choice2Text= choice2Text;
-            this.choice3Text= choice3Text;
-            this.choice4Text= choice4Text;
+            this.mchoice1Text= mchoice1Text;
+            this.mchoice2Text= mchoice2Text;
+            this.mchoice3Text= mchoice3Text;
+            this.mchoice4Text= mchoice4Text;
         }
     }
 

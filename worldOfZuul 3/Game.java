@@ -93,25 +93,57 @@ public class Game {
                 3,true);
 
 
-        ///Choice Items
+        ///Choice Items, can only choose once
         Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
-                "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger", 3,
-                "salat","burger", "","",false);
+                "eller en burger lavet på oksekød med ost og bacon.", 3,
+                "1. salat \n2. burger",
+                "du spiste salat",
+                "du spiste burger",
+                false);
         komfur = new Item.ChoiceItem("I dit køkken er der også et komfur. Du kan vælge enten at varme kødet i ovenen, " +
-                "eller stege det på en stegepande. \n - ovenen \n - stegepande",3,
-                "ovenen","stegepande", "","",false);
+                "eller stege det på en stegepande.",3,
+                "1. ovenen \n2. stegepande",
+                "du brugt ovenen",
+                "du brugt stegepande",
+                false);
         bad = new Item.ChoiceItem("Der er en bruser og et badekar på dit badeværelse." +
-                " Du kan tage et brusebad eller karbad bad her.\n - bruser \n - badekar",3,
-                "bruser","badekar","","", false);
-        transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre. \n - cykle \n - bil",3,
-                "cykle","bil", "","",false);
+                " Du kan tage et brusebad eller karbad bad her.",3,
+                "1. bruser \n2. badekar",
+                "du brugt bruser, hurtigt, men effektivt",
+                "du brugt badekar, dejligt og varmt",
+                false);
+        transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre.",3,
+                "1. cykle \n2. bil",
+                "du brugt cykle, ding ding",
+                "du brugt bil, beep beep",
+                false);
+
+        ///Multiple Choice Items, can be chosen multiple times
+        Item.MultipleChoice grete, brete;
+        grete = new Item.MultipleChoice("En pige ved navn Grett står der og ser ud til, at hun gerne vil vide, hvordan man hjælper klimakrisen.", 3,
+                "Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen?" +
+                        "\n1. Du kan samle skrald op nede på stranden" +
+                        "\n2. Du kan prøve at slukke for computeren" +
+                        "\n3. Du kan tage cyklen i stedet for bilen" +
+                        "\n4. Aner det ikke",
+                "Mange tak for hjælpen!",
+                "Nåår computeren, det var en god ide. Tak!",
+                "Uha, nej tak, det er der for langt til",
+                "Når..");
+
+        brete = new Item.MultipleChoice("En pige ved navn Brett står der og ser ud til, at hun gerne vil stille dig et simpelt matematikspørgsmål.", 3,
+                "1+1=?" +
+                        "\n1. 3" +
+                        "\n2. 2" +
+                        "\n3. 7" +
+                        "\n4. 42",
+                "Det kan måske virke med et par...",
+                "Korrekt! Godt klaret!",
+                "Forkert, hvordan får du overhovedet det svar?",
+                "Det er et svar... men for det forkerte spørgsmål.");
 
 
-        Item.MultipleChoice grete;
-        grete = new Item.MultipleChoice("Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen? \n1. Du kan samle skrald op nede på stranden" +
-                " \n2. Du kan prøve at slukke for computeren \n3. Du kan tage cyklen i stedet for bilen \n4. Aner det ikke", 3,
-                "Mange tak for hjælpen!","Nåår computeren, det var en god ide. Tak!","Uha, nej tak, det er der for langt til","Når..");
         ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;
         silkepapir = new Item.TrashItem("Brugt silkepapir.",1,false);
@@ -139,7 +171,8 @@ public class Game {
 
         byen.setRoomItems("transport", transport);
 
-        byen.setRoomItems("Grete", grete);
+        soveværelse.setRoomItems("Grete", grete);
+        soveværelse.setRoomItems("Brete", brete);
         //endregion ------------------------------------------------------------------------
     }
 
@@ -202,7 +235,7 @@ public class Game {
             sum += Integer.valueOf(score_list.get(i));
         if (currentItem instanceof Item.ToggleItem) {
             if (currentItem.getItemState() == true) {
-                System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+                System.out.println("Du fik " + currentItem.getItemPoints() + " pointx");
             } else {
                 System.out.println("Du mistede " + currentItem.getItemPoints() + " point");
             }
@@ -277,6 +310,10 @@ public class Game {
 
     public String getItemDescription() {
         return currentItem.getItemLongDescription();
+    }
+
+    public String getChoice() {
+        return currentItem.getChoiceDescription();
     }
 
     public String getInventoryDescription(){

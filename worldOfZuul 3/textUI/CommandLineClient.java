@@ -16,16 +16,14 @@ import java.util.Scanner;
  */
 public class CommandLineClient {
 
-    private Parser parser;
-    private Game game;
+    private final Parser parser;
+    private final Game game;
     private Inventory inventory;
 
     public CommandLineClient() {
         game = new Game();
         parser = new Parser(game);
     }
-
-
 
 
     public void play() {
@@ -111,27 +109,67 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.USE) {
             if (game.useItem(command)) {
-                game.switchItemState(command);
+
                 if(game.currentItem instanceof Item.TrashItem){
+                    game.switchItemState(command);///Moved down here so the ChoiceItem only active switchItemState when chosen an answer
                     System.out.println("Du samlede op:");
                     System.out.println(game.getItemDescription());
-                }
-                if (game.currentItem instanceof Item.MultipleChoice) {
+
+                }else if (game.currentItem instanceof Item.ToggleItem) {
+                    game.switchItemState(command);
                     System.out.println(game.getItemDescription());
+
+                }else if (game.currentItem instanceof Item.MultipleChoice) {
+                    System.out.println(game.getItemDescription());
+                    System.out.println(game.getChoice());
+                    System.out.print("> ");
                     Scanner valg = new Scanner(System.in);
-                    int choice = valg.nextInt();
-                    switch (choice){
-                        case 1 : System.out.println(Item.getChoice1());
-                            break;
-                        case 2 : System.out.println(Item.getChoice2());
-                            break;
-                        case 3 : System.out.println(Item.getChoice3());
-                            break;
-                        case 4 : System.out.println(Item.getChoice4());
-                            break;
-                        default : System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
+                    if(!valg.hasNextInt()){
+                        System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
+                    }else {
+                        int choice = valg.nextInt();
+                        switch (choice) {
+                            case 1:
+                                System.out.println(game.currentItem.choice1Text);
+                                break;
+                            case 2:
+                                System.out.println(game.currentItem.choice2Text);
+                                break;
+                            case 3:
+                                System.out.println(game.currentItem.choice3Text);
+                                break;
+                            case 4:
+                                System.out.println(game.currentItem.choice4Text);
+                                break;
+                            default:
+                                System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
+                        }
+                    }
+
+                }else if(game.currentItem instanceof Item.ChoiceItem) {
+                    System.out.println(game.getItemDescription());
+                    System.out.println(game.getChoice());
+                    System.out.print("> ");
+                    Scanner valg = new Scanner(System.in);
+                    if (!valg.hasNextInt()) {
+                        System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 2)");
+                    } else {
+                        int choice = valg.nextInt();
+                        switch (choice) {
+                            case 1:
+                                System.out.println(game.currentItem.choice1Text);
+                                game.switchItemState(command);
+                                break;
+                            case 2:
+                                System.out.println(game.currentItem.choice2Text);
+                                game.switchItemState(command);
+                                break;
+                            default:
+                                System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 2)");
+                        }
                     }
                 }
+
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
             }

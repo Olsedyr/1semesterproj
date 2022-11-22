@@ -44,9 +44,9 @@ public class Room{
         return returnString;
     }
 
-    public void removeItem(Item item)
+    public void removeItem(String itemName)
     {
-        roomItems.remove(item);
+        roomItems.remove(itemName);
 
         ///don't know why doesn't work
     }

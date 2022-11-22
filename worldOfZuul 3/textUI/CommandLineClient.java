@@ -114,7 +114,7 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.USE) {
             if (game.useItem(command)) {
-                game.switchItemState();
+                game.switchItemState(command);
                 if(game.currentItem instanceof Item.TrashItem){
                     System.out.println("Du samlede op...");
                     System.out.println(game.getItemDescription());

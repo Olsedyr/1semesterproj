@@ -227,7 +227,7 @@ public class Game {
 
 
 
-    public void switchItemState() {
+    public void switchItemState(Command command) {
         if (currentItem instanceof Item.ToggleItem) {
             //If you do the "right thing" you get points
             if (currentItem.getItemState()==true) {              //If item use is climate friendly, add points and change toggleState
@@ -240,16 +240,17 @@ public class Game {
             //refer to method changing itemDescription based on toggleState?
         } else if(currentItem instanceof Item.ChoiceItem) {
             currentItem.used = true;
-            removeItem();
+            removeItem(command);
         } else if (currentItem instanceof Item.TrashItem) {
             currentItem.pickedUp = true;
             addItem();
-            removeItem();
+            removeItem(command);
         }
 
     }
-    private void removeItem() {
-        currentRoom.removeItem(currentItem);
+    private void removeItem(Command command) {
+       String itemName=command.getCommandValue();
+       currentRoom.removeItem(itemName);
     }
     private void addItem() {
         inventory.addTrash(currentItem.getItemDescription(), currentItem);

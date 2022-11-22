@@ -2,15 +2,16 @@ package worldOfZuul;
 
 public class Item{
 
-    private String itemDescription;
+    protected String itemDescription;
     private int points;
     public boolean toggleState;
     public boolean used;
     public String choice1;
     public String choice2;
-    public String choice1Text; //Text shown when choosing one of the options
-    public String choice2Text;
-    public String trashType;
+    public static String choice1Text; //Text shown when choosing one of the options
+    public static String choice2Text;
+    public static String choice3Text;
+    public static String choice4Text;
     public boolean pickedUp;
 
     public Item(String itemDescirption,int points){
@@ -30,16 +31,33 @@ public class Item{
     private String toggleStateString(){
         String returnString = "";
             if (getItemState()) {
-                returnString = " Den/det er tændt/åben.";
+                returnString = " ";         // Before: Den/det er tændt/åben.
             } else {
-                returnString = " Den/det er slukket/lukket.";
+                returnString = " ";         // Before: Den/det er slukket/lukket.
             }
         return returnString;
     }
 
     public String getItemDescription(){
-        return itemDescription;
+        if(this instanceof ToggleItem) {
+            return ((ToggleItem) this).changeItemDescription();
+        }
+            return itemDescription;
     }
+
+    public static String getChoice1(){
+        return choice1Text;
+    }
+    public static String getChoice2(){
+        return choice2Text;
+    }
+    public static String getChoice3(){
+        return choice3Text;
+    }
+    public static String getChoice4(){
+        return choice4Text;
+    }
+
     public int getItemPoints(){
         return points;
     }
@@ -55,9 +73,23 @@ public class Item{
 
 
     public static class ToggleItem extends Item{
-        public ToggleItem(String itemDescirption, int points, boolean toggleState) {
-            super(itemDescirption, points);
+        private String itemDescriptionTrue;
+        private String itemDescriptionFalse;
+        public ToggleItem(String itemDescription, String itemDescriptionTrue, String itemDescriptionFalse, int points, boolean toggleState) {
+            super(itemDescription, points);
+            this.itemDescriptionTrue = itemDescriptionTrue;
+            this.itemDescriptionFalse = itemDescriptionFalse;
             this.toggleState = toggleState;
+        }
+
+        public String changeItemDescription() {             //Changes item description based on toggle state
+            if (this.getItemState()) {
+                this.itemDescription = itemDescriptionTrue;
+                return itemDescription;
+            } else {
+                this.itemDescription = itemDescriptionFalse;
+                return itemDescription;
+            }
         }
     }
 
@@ -74,11 +106,19 @@ public class Item{
         }
     }
 
+    public static class MultipleChoice extends Item{
+        public MultipleChoice (String itemDescirption, int points, String choice1Text, String choice2Text, String choice3Text, String choice4Text) {
+            super(itemDescirption, points);
+            this.choice1Text= choice1Text;
+            this.choice2Text= choice2Text;
+            this.choice3Text= choice3Text;
+            this.choice4Text= choice4Text;
+        }
+    }
     public static class TrashItem extends Item{
-        public TrashItem(String itemDescirption, int points, String trashType, boolean pickedUp) {
+        public TrashItem(String itemDescirption, int points, boolean pickedUp) {
             super(itemDescirption, points);
             this.pickedUp = pickedUp;
-            this.trashType = trashType;
         }
     }
 }

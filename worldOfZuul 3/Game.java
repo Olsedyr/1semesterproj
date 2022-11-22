@@ -209,8 +209,16 @@ public class Game {
             } else {
                 System.out.println("Du mistede " + currentItem.getItemPoints() + " point");
             }
+        }else if (currentItem instanceof Item.TrashItem) {
+            if (currentItem.getPickedUp()==true){
+                System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+            }
+
         }
+
         System.out.println("Din score er nu: " + sum);
+
+
 
         //Skriver til score.txt filen
         PrintWriter pw;
@@ -243,6 +251,10 @@ public class Game {
             removeItem(command);
         } else if (currentItem instanceof Item.TrashItem) {
             currentItem.pickedUp = true;
+            if (currentItem.getPickedUp()==true) {
+                score_list.add(currentItem.getItemPoints());
+            }
+            plus_sum_score();
             addItem();
             removeItem(command);
         }

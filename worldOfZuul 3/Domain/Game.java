@@ -1,4 +1,4 @@
-package worldOfZuul;
+package worldOfZuul.Domain;
 
 import java.io.*;
 import java.util.ArrayList;

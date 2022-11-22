@@ -1,4 +1,4 @@
-package worldOfZuul;
+package worldOfZuul.Domain;
 
 import java.util.HashMap;
 import java.util.Set;

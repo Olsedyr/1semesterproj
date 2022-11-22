@@ -1,4 +1,7 @@
-package worldOfZuul;
+package worldOfZuul.Domain;
+import worldOfZuul.Domain.CommandWords;
+import worldOfZuul.Domain.Commands;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

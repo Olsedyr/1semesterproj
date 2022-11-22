@@ -1,4 +1,4 @@
-package worldOfZuul;
+package worldOfZuul.Domain;
 
 public class Item{
 

@@ -196,9 +196,6 @@ public class Game {
         }
     }
 
-
-
-
     public int plus_sum_score(){
         int sum=0;
         for (int i = 0; i<score_list.size(); i++)
@@ -215,10 +212,7 @@ public class Game {
             }
 
         }
-
         System.out.println("Din score er nu: " + sum);
-
-
 
         //Skriver til score.txt filen
         PrintWriter pw;
@@ -232,7 +226,6 @@ public class Game {
         }
         return sum;
     }
-
 
 
     public void switchItemState(Command command) {

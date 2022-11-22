@@ -100,9 +100,6 @@ public class CommandLineClient {
                 System.out.println("Kan ikke gå i den retning.");
             }
 
-
-
-
         } else if (commandWord == Commands.LOOK) {
             if (game.lookRoom(command)) {
                 System.out.println(game.getItemList());
@@ -116,7 +113,7 @@ public class CommandLineClient {
             if (game.useItem(command)) {
                 game.switchItemState(command);
                 if(game.currentItem instanceof Item.TrashItem){
-                    System.out.println("Du samlede op...");
+                    System.out.println("Du samlede op:");
                     System.out.println(game.getItemDescription());
                 }
                 if (game.currentItem instanceof Item.MultipleChoice) {
@@ -138,10 +135,12 @@ public class CommandLineClient {
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
             }
+
         } else if (commandWord == Commands.Inventory) {
             if(game.inventory(command)){
                 System.out.println(game.getInventoryDescription());
             }
+
         } else if (commandWord == Commands.QUIT) {
             if (game.quit(command)) {
                 wantToQuit = true;

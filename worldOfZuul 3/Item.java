@@ -6,6 +6,7 @@ public class Item{
     private final int points;
     public boolean toggleState;             //On or off for the ToggleItem class
     public boolean used;                    //Check if the ChoiceItem class item have been used or not
+    public int correctChoice;               //Correct int choice
     protected String choiceDescription;     //Text for the choices
     public String choice1Text;              //Text shown when choosing one of the options
     public String choice2Text;
@@ -80,12 +81,14 @@ public class Item{
     }
 
     public static class ChoiceItem extends Item{
-        public ChoiceItem(String itemDescirption, int points, String choiceDescription, String choice1Text, String choice2Text, boolean used) {
+
+        public ChoiceItem(String itemDescirption, int points, String choiceDescription, String choice1Text, String choice2Text, boolean used, int correctChoice) {
             super(itemDescirption, points);
             this.choiceDescription = choiceDescription;
             this.choice1Text = choice1Text;
             this.choice2Text = choice2Text;
             this.used = used;
+            this.correctChoice = correctChoice;
         }
     }
 

@@ -1,5 +1,7 @@
 package worldOfZuul;
 
+import worldOfZuul.textUI.CommandLineClient;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,27 +99,27 @@ public class Game {
         Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
                 "eller en burger lavet på oksekød med ost og bacon.", 3,
-                "1. salat \n2. burger",
-                "du spiste salat",
-                "du spiste burger",
-                false);
+                "1. salat\n2. burger",
+                "Du spiste salat",
+                "Du spiste burger",
+                false,1);
         komfur = new Item.ChoiceItem("I dit køkken er der også et komfur. Du kan vælge enten at varme kødet i ovenen, " +
                 "eller stege det på en stegepande.",3,
-                "1. ovenen \n2. stegepande",
-                "du brugt ovenen",
-                "du brugt stegepande",
-                false);
+                "1. ovenen\n2. stegepande",
+                "Du brugt ovenen",
+                "Du brugt stegepande",
+                false,2);
         bad = new Item.ChoiceItem("Der er en bruser og et badekar på dit badeværelse." +
                 " Du kan tage et brusebad eller karbad bad her.",3,
-                "1. bruser \n2. badekar",
-                "du brugt bruser, hurtigt, men effektivt",
-                "du brugt badekar, dejligt og varmt",
-                false);
+                "1. bruser\n2. badekar",
+                "Du brugt bruser, hurtigt, men effektivt",
+                "Du brugt badekar, dejligt og varmt",
+                false,1);
         transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre.",3,
-                "1. cykle \n2. bil",
-                "du brugt cykle, ding ding",
-                "du brugt bil, beep beep",
-                false);
+                "1. cykle\n2. bil",
+                "Du brugt cykle, ding ding",
+                "Du brugt bil, beep beep",
+                false, 1);
 
         ///Multiple Choice Items, can be chosen multiple times
         Item.MultipleChoice grete, brete;
@@ -232,17 +234,22 @@ public class Game {
         int sum=0;
         for (int i = 0; i<score_list.size(); i++)
             sum += Integer.valueOf(score_list.get(i));
+
         if (currentItem instanceof Item.ToggleItem) {
             if (currentItem.getItemState() == true) {
                 System.out.println("Du fik " + currentItem.getItemPoints() + " pointx");
             } else {
                 System.out.println("Du mistede " + currentItem.getItemPoints() + " point");
             }
+        }else if (currentItem instanceof Item.ChoiceItem) {
+            if(currentItem.correctChoice == CommandLineClient.choice){
+                System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+            }
+
         }else if (currentItem instanceof Item.TrashItem) {
             if (currentItem.getPickedUp()==true){
                 System.out.println("Du fik " + currentItem.getItemPoints() + " point");
             }
-
         }
         System.out.println("Din score er nu: " + sum);
 
@@ -270,10 +277,15 @@ public class Game {
             plus_sum_score();
             currentItem.toggleState ^= true;                    //Toggle switch for toggleState boolean
             //refer to method changing itemDescription based on toggleState?
+
         } else if(currentItem instanceof Item.ChoiceItem) {
             currentItem.used = true;
-            //Missing score implementation
+            if(currentItem.correctChoice == CommandLineClient.choice){
+                score_list.add(currentItem.getItemPoints());
+            }
+            plus_sum_score();
             removeItem(command);
+
         } else if (currentItem instanceof Item.TrashItem) {
             currentItem.pickedUp = true;
             if (currentItem.getPickedUp()==true) {

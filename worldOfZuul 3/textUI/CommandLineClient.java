@@ -18,10 +18,14 @@ public class CommandLineClient {
 
     private final Parser parser;
     private final Game game;
+    public Scanner valg;
+    public static int choice;
+
 
     public CommandLineClient() {
         game = new Game();
         parser = new Parser(game);
+        valg = new Scanner(System.in);
     }
 
 
@@ -121,11 +125,10 @@ public class CommandLineClient {
                     System.out.println(game.getItemDescription());
                     System.out.println(game.getChoice());
                     System.out.print("> ");
-                    Scanner valg = new Scanner(System.in);
                     if(!valg.hasNextInt()){
                         System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
                     }else {
-                        int choice = valg.nextInt();
+                        choice = valg.nextInt();
                         switch (choice) {
                             case 1:
                                 System.out.println(game.currentItem.choice1Text);
@@ -148,11 +151,10 @@ public class CommandLineClient {
                     System.out.println(game.getItemDescription());
                     System.out.println(game.getChoice());
                     System.out.print("> ");
-                    Scanner valg = new Scanner(System.in);
                     if (!valg.hasNextInt()) {
                         System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 2)");
                     } else {
-                        int choice = valg.nextInt();
+                        choice = valg.nextInt();
                         switch (choice) {
                             case 1:
                                 System.out.println(game.currentItem.choice1Text);
@@ -164,6 +166,7 @@ public class CommandLineClient {
                                 break;
                             default:
                                 System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 2)");
+
                         }
                     }
                 }

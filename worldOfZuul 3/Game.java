@@ -182,10 +182,8 @@ public class Game {
             //Can't continue with GO command.
             System.out.println("Har brug for en retning at gå til.");
         }
-
         String direction = command.getCommandValue();
         Room nextRoom = currentRoom.getExit(direction);
-
         if (nextRoom == null) {
             return false;
         } else {
@@ -199,8 +197,9 @@ public class Game {
             return false;
         }
         String Item = currentRoom.getRoomItemList();
-        return Item != null;
+        return Item != null;    //return true if Item != null
     }
+
     public boolean lookItem(Command command) {
         if (!command.hasCommandValue()) {
             return false;
@@ -253,7 +252,6 @@ public class Game {
         pw = new PrintWriter(scoreFile);
         pw.println(sum);
         pw.close();
-
         } catch (FileNotFoundException ex){
             System.out.println("Der var en fejl i scoresystemet. ");
         }
@@ -270,10 +268,11 @@ public class Game {
                 score_list.remove(Integer.valueOf(currentItem.getItemPoints()));
             }
             plus_sum_score();
-            currentItem.toggleState ^= true;
+            currentItem.toggleState ^= true;                    //Toggle switch for toggleState boolean
             //refer to method changing itemDescription based on toggleState?
         } else if(currentItem instanceof Item.ChoiceItem) {
             currentItem.used = true;
+            //Missing score implementation
             removeItem(command);
         } else if (currentItem instanceof Item.TrashItem) {
             currentItem.pickedUp = true;
@@ -281,16 +280,17 @@ public class Game {
                 score_list.add(currentItem.getItemPoints());
             }
             plus_sum_score();
-            addItem();
+            addItemToInventory();
             removeItem(command);
         }
-
     }
+
     private void removeItem(Command command) {
        String itemName=command.getCommandValue();
        currentRoom.removeItem(itemName);
     }
-    private void addItem() {
+
+    private void addItemToInventory() {
         inventory.addTrash(currentItem.getItemDescription(), currentItem);
     }
 
@@ -301,6 +301,7 @@ public class Game {
     public boolean quit(Command command) {
         return !command.hasCommandValue();
     }
+
 
     //region getCommands Implementation
     //---------------------------------------------------------------------------------------

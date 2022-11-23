@@ -18,7 +18,6 @@ public class CommandLineClient {
 
     private final Parser parser;
     private final Game game;
-    private Inventory inventory;
 
     public CommandLineClient() {
         game = new Game();
@@ -109,10 +108,9 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.USE) {
             if (game.useItem(command)) {
-
                 if(game.currentItem instanceof Item.TrashItem){
                     game.switchItemState(command);///Moved down here so the ChoiceItem only active switchItemState when chosen an answer
-                    System.out.println("Du samlede op:");
+                    System.out.println("Du samlede op: ");
                     System.out.println(game.getItemDescription());
 
                 }else if (game.currentItem instanceof Item.ToggleItem) {
@@ -146,7 +144,7 @@ public class CommandLineClient {
                         }
                     }
 
-                }else if(game.currentItem instanceof Item.ChoiceItem) {
+                }else if(game.currentItem instanceof Item.ChoiceItem) {     //There must be a way to not copy this...
                     System.out.println(game.getItemDescription());
                     System.out.println(game.getChoice());
                     System.out.print("> ");

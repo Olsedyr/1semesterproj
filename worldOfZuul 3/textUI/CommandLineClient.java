@@ -7,6 +7,12 @@ package worldOfZuul.textUI;
 
 import worldOfZuul.Domain.*;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  *
  * @author ancla

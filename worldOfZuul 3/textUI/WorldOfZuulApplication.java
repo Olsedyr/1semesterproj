@@ -19,5 +19,4 @@ public class WorldOfZuulApplication {
         client.play();
 
     }
-    
 }

@@ -1,5 +1,7 @@
 package worldOfZuul.Domain;
 
+import worldOfZuul.textUI.CommandLineClient;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,19 +95,56 @@ public class Game {
                 3,true);
 
 
-        ///Choice Items
+        ///Choice Items, can only choose once
         Item.ChoiceItem køleskab, komfur, bad, transport;
         køleskab = new Item.ChoiceItem("Der er et køleskab i dit køkken. Med ingredienserne indeni kan du enten lave en økologisk salat med kylling, " +
-                "eller en burger lavet på oksekød med ost og bacon. \n - salat \n - burger", 3,
-                "salat","burger", "","",false);
+                "eller en burger lavet på oksekød med ost og bacon.", 3,
+                "1. salat\n2. burger",
+                "Du spiste salat",
+                "Du spiste burger",
+                false,1);
         komfur = new Item.ChoiceItem("I dit køkken er der også et komfur. Du kan vælge enten at varme kødet i ovenen, " +
-                "eller stege det på en stegepande. \n - ovenen \n - stegepande",3,
-                "ovenen","stegepande", "","",false);
+                "eller stege det på en stegepande.",3,
+                "1. ovenen\n2. stegepande",
+                "Du brugt ovenen",
+                "Du brugt stegepande",
+                false,2);
         bad = new Item.ChoiceItem("Der er en bruser og et badekar på dit badeværelse." +
-                " Du kan tage et brusebad eller karbad bad her.\n - bruser \n - badekar",3,
-                "bruser","badekar","","", false);
-        transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre. \n - cykle \n - bil",3,
-                "cykle","bil", "","",false);
+                " Du kan tage et brusebad eller karbad bad her.",3,
+                "1. bruser\n2. badekar",
+                "Du brugt bruser, hurtigt, men effektivt",
+                "Du brugt badekar, dejligt og varmt",
+                false,1);
+        transport = new Item.ChoiceItem("Du kan tage til stranden ved at cykle eller at køre.",3,
+                "1. cykle\n2. bil",
+                "Du brugt cykle, ding ding",
+                "Du brugt bil, beep beep",
+                false, 1);
+
+        ///Multiple Choice Items, can be chosen multiple times
+        Item.MultipleChoice grete, brete;
+        grete = new Item.MultipleChoice("En pige ved navn Grett står der og ser ud til, at hun gerne vil vide, hvordan man hjælper klimakrisen.", 3,
+                "Hej du! Er der noget jeg kan gøre for at hjælpe med klimakrisen?" +
+                        "\n1. Du kan samle skrald op nede på stranden" +
+                        "\n2. Du kan prøve at slukke for computeren" +
+                        "\n3. Du kan tage cyklen i stedet for bilen" +
+                        "\n4. Aner det ikke",
+                "Mange tak for hjælpen!",
+                "Nåår computeren, det var en god ide. Tak!",
+                "Uha, nej tak, det er der for langt til",
+                "Når..");
+
+        brete = new Item.MultipleChoice("En pige ved navn Brett står der og ser ud til, at hun gerne vil stille dig et simpelt matematikspørgsmål.", 3,
+                "1+1=?" +
+                        "\n1. 3" +
+                        "\n2. 2" +
+                        "\n3. 7" +
+                        "\n4. 42",
+                "Det kan måske virke med et par...",
+                "Korrekt! Godt klaret!",
+                "Forkert, hvordan får du overhovedet det svar?",
+                "Det er et svar... men for det forkerte spørgsmål.");
+
 
         ///Trash Items
         Item.TrashItem silkepapir, sodavandsdåser, pizzabakke, mælkekarton;
@@ -133,6 +172,9 @@ public class Game {
         badeværelse.setRoomItems("bad", bad);
 
         byen.setRoomItems("transport", transport);
+
+        soveværelse.setRoomItems("Grete", grete);
+        soveværelse.setRoomItems("Brete", brete);
         //endregion ------------------------------------------------------------------------
     }
 
@@ -142,10 +184,8 @@ public class Game {
             //Can't continue with GO command.
             System.out.println("Har brug for en retning at gå til.");
         }
-
         String direction = command.getCommandValue();
         Room nextRoom = currentRoom.getExit(direction);
-
         if (nextRoom == null) {
             return false;
         } else {
@@ -159,8 +199,9 @@ public class Game {
             return false;
         }
         String Item = currentRoom.getRoomItemList();
-        return Item != null;
+        return Item != null;    //return true if Item != null
     }
+
     public boolean lookItem(Command command) {
         if (!command.hasCommandValue()) {
             return false;
@@ -189,18 +230,25 @@ public class Game {
         }
     }
 
-
-
-
     public int plus_sum_score(){
         int sum=0;
         for (int i = 0; i<score_list.size(); i++)
             sum += Integer.valueOf(score_list.get(i));
+
         if (currentItem instanceof Item.ToggleItem) {
             if (currentItem.getItemState() == true) {
-                System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+                System.out.println("Du fik " + currentItem.getItemPoints() + " pointx");
             } else {
                 System.out.println("Du mistede " + currentItem.getItemPoints() + " point");
+            }
+        }else if (currentItem instanceof Item.ChoiceItem) {
+            if(currentItem.correctChoice == CommandLineClient.choice){
+                System.out.println("Du fik " + currentItem.getItemPoints() + " point");
+            }
+
+        }else if (currentItem instanceof Item.TrashItem) {
+            if (currentItem.getPickedUp()==true){
+                System.out.println("Du fik " + currentItem.getItemPoints() + " point");
             }
         }
         System.out.println("Din score er nu: " + sum);
@@ -211,7 +259,6 @@ public class Game {
         pw = new PrintWriter(scoreFile);
         pw.println(sum);
         pw.close();
-
         } catch (FileNotFoundException ex){
             System.out.println("Der var en fejl i scoresystemet. ");
         }
@@ -219,8 +266,7 @@ public class Game {
     }
 
 
-
-    public void switchItemState() {
+    public void switchItemState(Command command) {
         if (currentItem instanceof Item.ToggleItem) {
             //If you do the "right thing" you get points
             if (currentItem.getItemState()==true) {              //If item use is climate friendly, add points and change toggleState
@@ -229,22 +275,34 @@ public class Game {
                 score_list.remove(Integer.valueOf(currentItem.getItemPoints()));
             }
             plus_sum_score();
-            currentItem.toggleState ^= true;
+            currentItem.toggleState ^= true;                    //Toggle switch for toggleState boolean
             //refer to method changing itemDescription based on toggleState?
+
         } else if(currentItem instanceof Item.ChoiceItem) {
             currentItem.used = true;
-            removeItem();
+            if(currentItem.correctChoice == CommandLineClient.choice){
+                score_list.add(currentItem.getItemPoints());
+            }
+            plus_sum_score();
+            removeItem(command);
+
         } else if (currentItem instanceof Item.TrashItem) {
             currentItem.pickedUp = true;
-            addItem();
-            removeItem();
+            if (currentItem.getPickedUp()==true) {
+                score_list.add(currentItem.getItemPoints());
+            }
+            plus_sum_score();
+            addItemToInventory();
+            removeItem(command);
         }
+    }
 
+    private void removeItem(Command command) {
+       String itemName=command.getCommandValue();
+       currentRoom.removeItem(itemName);
     }
-    private void removeItem() {
-        currentRoom.removeItem(currentItem);
-    }
-    private void addItem() {
+
+    private void addItemToInventory() {
         inventory.addTrash(currentItem.getItemDescription(), currentItem);
     }
 
@@ -256,6 +314,7 @@ public class Game {
         return !command.hasCommandValue();
     }
 
+
     //region getCommands Implementation
     //---------------------------------------------------------------------------------------
     public String getRoomDescription() {
@@ -264,6 +323,10 @@ public class Game {
 
     public String getItemDescription() {
         return currentItem.getItemLongDescription();
+    }
+
+    public String getChoice() {
+        return currentItem.getChoiceDescription();
     }
 
     public String getInventoryDescription(){

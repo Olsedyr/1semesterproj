@@ -16,16 +16,17 @@ import java.util.Scanner;
  */
 public class CommandLineClient {
 
-    private Parser parser;
-    private Game game;
-    private Inventory inventory;
+    private final Parser parser;
+    private final Game game;
+    public Scanner valg;
+    public static int choice;
+
 
     public CommandLineClient() {
         game = new Game();
         parser = new Parser(game);
+        valg = new Scanner(System.in);
     }
-
-
 
 
     public void play() {
@@ -111,19 +112,74 @@ public class CommandLineClient {
 
         } else if (commandWord == Commands.USE) {
             if (game.useItem(command)) {
-                game.switchItemState();
                 if(game.currentItem instanceof Item.TrashItem){
-                    System.out.println("Du samlede op...");
+                    game.switchItemState(command);///Moved down here so the ChoiceItem only active switchItemState when chosen an answer
+                    System.out.println("Du samlede op: ");
+                    System.out.println(game.getItemDescription());
+
+                }else if (game.currentItem instanceof Item.ToggleItem) {
+                    game.switchItemState(command);
+                    System.out.println(game.getItemDescription());
+
+                }else if (game.currentItem instanceof Item.MultipleChoice) {
+                    System.out.println(game.getItemDescription());
+                    System.out.println(game.getChoice());
+                    System.out.print("> ");
+                    if(!valg.hasNextInt()){
+                        System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
+                    }else {
+                        choice = valg.nextInt();
+                        switch (choice) {
+                            case 1:
+                                System.out.println(game.currentItem.choice1Text);
+                                break;
+                            case 2:
+                                System.out.println(game.currentItem.choice2Text);
+                                break;
+                            case 3:
+                                System.out.println(game.currentItem.choice3Text);
+                                break;
+                            case 4:
+                                System.out.println(game.currentItem.choice4Text);
+                                break;
+                            default:
+                                System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 4)");
+                        }
+                    }
+
+                }else if(game.currentItem instanceof Item.ChoiceItem) {     //There must be a way to not copy this...
+                    System.out.println(game.getItemDescription());
+                    System.out.println(game.getChoice());
+                    System.out.print("> ");
+                    if (!valg.hasNextInt()) {
+                        System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 2)");
+                    } else {
+                        choice = valg.nextInt();
+                        switch (choice) {
+                            case 1:
+                                System.out.println(game.currentItem.choice1Text);
+                                game.switchItemState(command);
+                                break;
+                            case 2:
+                                System.out.println(game.currentItem.choice2Text);
+                                game.switchItemState(command);
+                                break;
+                            default:
+                                System.out.println("Det er ikke et af de fire valg! (Skriv et tal fra 1 til 2)");
+
+                        }
+                    }
                 }
-                System.out.println(game.getItemDescription());
 
             } else {
                 System.out.println("Jeg kan ikke gøre noget ved det.");
             }
+
         } else if (commandWord == Commands.Inventory) {
             if(game.inventory(command)){
                 System.out.println(game.getInventoryDescription());
             }
+
         } else if (commandWord == Commands.QUIT) {
             if (game.quit(command)) {
                 wantToQuit = true;

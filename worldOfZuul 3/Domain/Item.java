@@ -2,20 +2,21 @@ package worldOfZuul.Domain;
 
 public class Item{
 
-    protected String itemDescription;
-    private int points;
-    public boolean toggleState;
-    public boolean used;
-    public String choice1;
-    public String choice2;
-    public String choice1Text; //Text shown when choosing one of the options
+    protected String itemDescription;       //Text for the item itself
+    private final int points;
+    public boolean toggleState;             //On or off for the ToggleItem class
+    public boolean used;                    //Check if the ChoiceItem class item have been used or not
+    public int correctChoice;               //Correct int choice
+    protected String choiceDescription;     //Text for the choices
+    public String choice1Text;              //Text shown when choosing one of the options
     public String choice2Text;
-    public boolean pickedUp;
+    public String choice3Text;
+    public String choice4Text;
+    public boolean pickedUp;                //Check if the TrashItem class item have been picked up or not
 
-    public Item(String itemDescirption,int points){
-        this.itemDescription = itemDescirption;
+    public Item(String itemDescription,int points){
+        this.itemDescription = itemDescription;
         this.points = points;
-
     }
 
     public String getItemLongDescription(){
@@ -24,6 +25,13 @@ public class Item{
             returnString += toggleStateString();
         }
         return returnString;
+    }
+
+    public String getItemDescription(){
+        if(this instanceof ToggleItem) {
+            return ((ToggleItem) this).changeItemDescription();
+        }
+        return itemDescription;
     }
 
     private String toggleStateString(){
@@ -36,12 +44,7 @@ public class Item{
         return returnString;
     }
 
-    public String getItemDescription(){
-        if(this instanceof ToggleItem) {
-            return ((ToggleItem) this).changeItemDescription();
-        }
-            return itemDescription;
-    }
+    public  String getChoiceDescription() {return choiceDescription;}
     public int getItemPoints(){
         return points;
     }
@@ -57,8 +60,8 @@ public class Item{
 
 
     public static class ToggleItem extends Item{
-        private String itemDescriptionTrue;
-        private String itemDescriptionFalse;
+        private final String itemDescriptionTrue;
+        private final String itemDescriptionFalse;
         public ToggleItem(String itemDescription, String itemDescriptionTrue, String itemDescriptionFalse, int points, boolean toggleState) {
             super(itemDescription, points);
             this.itemDescriptionTrue = itemDescriptionTrue;
@@ -79,14 +82,24 @@ public class Item{
 
     public static class ChoiceItem extends Item{
 
-        public ChoiceItem(String itemDescirption, int points, String choice1, String choice2, String choice1Text, String choice2Text, boolean used) {
+        public ChoiceItem(String itemDescirption, int points, String choiceDescription, String choice1Text, String choice2Text, boolean used, int correctChoice) {
             super(itemDescirption, points);
-            this.choice1= choice1;
-            this.choice2= choice2;
-            this.choice1Text= choice1Text;
-            this.choice2Text= choice2Text;
+            this.choiceDescription = choiceDescription;
+            this.choice1Text = choice1Text;
+            this.choice2Text = choice2Text;
             this.used = used;
+            this.correctChoice = correctChoice;
+        }
+    }
 
+    public static class MultipleChoice extends Item{
+        public MultipleChoice (String itemDescirption, int points, String choiceDescription, String choice1Text, String choice2Text, String choice3Text, String choice4Text) {
+            super(itemDescirption, points);
+            this.choiceDescription = choiceDescription;
+            this.choice1Text = choice1Text;
+            this.choice2Text = choice2Text;
+            this.choice3Text = choice3Text;
+            this.choice4Text = choice4Text;
         }
     }
 
